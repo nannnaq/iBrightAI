@@ -1,0 +1,81 @@
+clc;
+clear all;
+
+% 读取数据
+C = xlsread('E:\工作内容\OK镜数字化\角膜地形图计算方法\Tomey\8.xlsx'); % RM 数据
+B = xlsread('E:\工作内容\OK镜数字化\角膜地形图计算方法\Tomey\7.xlsx'); % CH 数据
+
+% 将负数改为 NaN
+C(C < 0) = NaN;
+B(B < 0) = NaN;
+
+% 定义缺失值
+C(C == 0) = NaN;
+B(B == 0) = NaN;
+
+% 数据重塑
+CH2 = B'; % 转置 CH 数据
+RM2 = C'; % 转置 RM 数据
+
+% 用户输入半径和角度
+R = input('请输入半径 R: '); % 输入半径
+theta = input('请输入角度 theta (0-359): '); % 输入角度
+
+% 检查角度范围
+if theta < 0 || theta >= 360
+    error('角度 theta 必须在 0 到 359 的范围内');
+end
+
+% 计算每列对应的角度和索引
+angle_step = 360 / size(CH2, 2); % 每列对应的角度步长
+angle_columns = (0:size(CH2, 2)-1) * angle_step; % 角度数组
+
+% 查找最接近 theta 的角度索引
+[~, nearest_index] = min(abs(angle_columns - theta));
+
+% 使用 spline 插值方法来获取 RM2 和 CH2 对应的列
+if angle_columns(nearest_index) ~= theta
+    angle_indices = nearest_index - 1 : nearest_index + 1;
+
+    % 提取 RM_row 和 CH_row
+    RM_row = RM2(:, angle_indices);
+    CH_row = CH2(:, angle_indices);
+
+    % 删除 NaN 值
+    valid_indices = all(isfinite([RM_row CH_row]), 2); % 确保 RM_row 和 CH_row 都是有效的
+    RM_row = RM_row(valid_indices, :);
+    CH_row = CH_row(valid_indices, :);
+
+    % 检查有效数据数量
+    if size(RM_row, 1) < 2 || size(CH_row, 1) < 2
+        error('所选角度的 RM_row 或 CH_row 数据点不足以进行插值（至少需要两个有效数据点）。');
+    end
+
+    % 执行 spline 插值
+    RM_interp = spline(angle_columns(angle_indices), RM_row, theta);
+    CH_interp = spline(angle_columns(angle_indices), CH_row, theta);
+else
+    RM_interp = RM2(:, nearest_index);
+    CH_interp = CH2(:, nearest_index);
+end
+
+% 检查 RM_interp 和 CH_interp 的有效性
+if all(isnan(RM_interp)) || all(isnan(CH_interp))
+    error('所请求的角度没有有效数据');
+end
+
+% 过滤掉 RM_interp 和 CH_interp 中的 NaN 或 Inf 值
+valid_indices = isfinite(RM_interp) & isfinite(CH_interp);
+RM_interp = RM_interp(valid_indices);
+CH_interp = CH_interp(valid_indices);
+
+% 确认输入 R 在 RM_interp 减去0.15的范围外
+if R < (min(RM_interp) - 0.15) || R > max(RM_interp)
+    height = NaN;
+else
+    % 执行插值以计算高度
+    height = interp1(RM_interp, CH_interp, R, 'linear');
+end
+
+% 显示结果
+fprintf('对于半径 R = %.4f 和角度 theta = %.4f，对应的高度为: %.4f\n', R, theta, height);

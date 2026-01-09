@@ -1,0 +1,66 @@
+{% block style %}
+    <style>
+        .message-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            opacity: 0;
+            transition: all 2s ease;
+            transform: translateX(20px);
+        }
+        .message-popup.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .alert {
+            margin-bottom: 10px;
+        }
+        .alert-dismissible .btn-close {
+            outline: none;
+        }
+    </style>
+{% endblock %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible message-popup" role="alert">
+          <div class="d-flex">
+{#            <div>#}
+{#              <!-- SVG icon code with class="alert-icon" -->#}
+{#              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="alert-icon">#}
+{#                <path stroke="none" d="M0 0h24v24H0z" fill="none" />#}
+{#                <path d="M5 12l5 5l10 -10" />#}
+{#              </svg>#}
+{#            </div>#}
+            <div>
+              <h4 class="alert-title">
+                {% if message.tags == "success" %}成功
+                {% elif message.tags == "error" %}错误
+                {% else %}{{ message.tags }}
+                {% endif %}
+              </h4>
+              <div class="text-muted">{{ message.message }}</div>
+            </div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% block script %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 检查是否有消息
+            const messages = document.querySelectorAll('.message-popup');
+            messages.forEach(function(message) {
+                // 显示消息
+                message.classList.add('show');
+                // 2秒后自动关闭
+                setTimeout(function() {
+                    message.classList.remove('show');
+                }, 5000);
+            });
+        });
+    </script>
+{% endblock %}

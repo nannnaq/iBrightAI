@@ -1,0 +1,35 @@
+# patient/__pycache__/
+# services/__pycache__/
+# eyehospital/
+# =======
+# patient/migrations/__pycache__/
+# eyehospital/__pycache__/
+# media/
+# loguru.log
+# .idea/misc.xml
+# .idea/
+# patient/migrations/
+# uprofile/migrations/
+# uprofile/__pycache__/
+
+# patient/views/__pycache__/seour.cpython-310.pyc
+# patient/views/__pycache__/
+
+# build/
+staticfiles/
+dist/
+
+# Python 缓存文件
+__pycache__/
+*.pyc  # 额外补充：排除单个 .pyc 文件（如果有的话）
+
+# 编辑器配置
+.idea/
+
+# 用户上传文件和日志
+# media/
+loguru.log
+
+# 打包/编译产物
+build/
+# staticfiles/

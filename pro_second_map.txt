@@ -1,0 +1,332 @@
+[
+  {
+    "base_arc_curvature_radius": 6.73,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 6.777,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 6.793,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 6.876,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 6.922,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 6.965,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.02,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.065,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.12,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.18,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.22,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.273,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.33,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.373,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.44,
+    "lens_type_number": -2.5,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.293,
+    "lens_type_number": -3.2,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.35,
+    "lens_type_number": -3.2,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.405,
+    "lens_type_number": -3.2,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.46,
+    "lens_type_number": -3.2,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.527,
+    "lens_type_number": -3.2,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.585,
+    "lens_type_number": -3.2,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.64,
+    "lens_type_number": -3.2,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.695,
+    "lens_type_number": -3.2,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.76,
+    "lens_type_number": -3.2,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.82,
+    "lens_type_number": -3.2,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.885,
+    "lens_type_number": -3.2,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.95,
+    "lens_type_number": -3.2,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.828,
+    "lens_type_number": -3.9,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.895,
+    "lens_type_number": -3.9,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 7.963,
+    "lens_type_number": -3.9,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.03,
+    "lens_type_number": -3.9,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.1,
+    "lens_type_number": -3.9,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.169,
+    "lens_type_number": -3.9,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.23,
+    "lens_type_number": 3.9,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.31,
+    "lens_type_number": -3.9,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.376,
+    "lens_type_number": -3.9,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.455,
+    "lens_type_number": -3.9,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.52,
+    "lens_type_number": -3.9,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.6,
+    "lens_type_number": -3.9,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.454,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.535,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.61,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.69,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.765,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.855,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 8.94,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 9.03,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 9.1,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 9.195,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 9.285,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 9.372,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 9.46,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 9.55,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 9.64,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  },
+  {
+    "base_arc_curvature_radius": 9.725,
+    "lens_type_number": -4.8,
+    "lens_type": "PRO",
+    "belongs_level": 2
+  }
+]

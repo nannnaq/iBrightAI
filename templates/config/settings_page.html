@@ -1,0 +1,184 @@
+{% extends "headers.html" %}
+
+{% block title %}{{ page_title|default:"配置设置" }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col">
+        <h2 class="page-title">
+          {{ page_title }}
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-body">
+  <div class="container-fluid">
+    <div class="row row-deck row-cards">
+      
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+              <h3 class="card-title">Medmont 自动定制设置</h3>
+          </div>
+          <div class="card-body">
+            <div class="alert alert-info" role="alert">
+              <h4 class="alert-title">重要提示</h4>
+              <div class="text-secondary">
+                如果不设置该选项，您将无法从 Medmont 设备软件中一键“导出至普诺瞳AI”， 也无法使用Medmont的自动定制功能。
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">当前 Medmont 根目录路径</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="medmont-path-display" readonly placeholder="尚未配置...">
+                <button class="btn btn-outline-secondary" type="button" onclick="selectAndConfigPath()">
+                  选择路径并配置
+                </button>
+              </div>
+              <small class="form-hint">
+                请选择 Medmont 软件的根目录。
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+              <h3 class="card-title">Tomey 程序目录设置</h3>
+          </div>
+          <div class="card-body">
+            <div class="alert alert-warning" role="alert">
+              <h4 class="alert-title">配置说明</h4>
+              <div class="text-secondary">
+                请指定 Tomey 主程序所在的<strong>安装目录</strong> (例如 C:\Tms4)。我们将在该目录下自动查找 TmsSw.exe。
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">当前 Tomey 安装目录</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="tomey-path-display" readonly placeholder="尚未配置...">
+                <button class="btn btn-outline-secondary" type="button" onclick="selectAndConfigTomeyPath()">
+                  选择安装目录
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+              <h3 class="card-title">Tomey 数据文件目录设置</h3>
+          </div>
+          <div class="card-body">
+            <div class="alert alert-success" role="alert">
+              <h4 class="alert-title">配置说明</h4>
+              <div class="text-secondary">
+                请指定存放 <strong>.tms</strong> 地形图文件的文件夹。程序将自动从该目录读取数据。
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">当前 .tms 数据目录</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="tomey-data-path-display" readonly placeholder="尚未配置...">
+                <button class="btn btn-outline-secondary" type="button" onclick="selectAndConfigTomeyDataPath()">
+                  选择数据目录
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    // 加载所有保存的路径
+    function loadSavedPath() {
+        if (window.pywebview) {
+            
+            // 1. 加载 Medmont
+            if (window.pywebview.api.load_medmont_path) {
+                window.pywebview.api.load_medmont_path().then(function(path) {
+                    if (path) document.getElementById('medmont-path-display').value = path;
+                });
+            }
+
+            // 2. 加载 Tomey 程序目录
+            if (window.pywebview.api.load_tomey_path) {
+                window.pywebview.api.load_tomey_path().then(function(path) {
+                    if (path) document.getElementById('tomey-path-display').value = path;
+                });
+            }
+
+            // 3. 加载 Tomey 数据目录 (新增)
+            if (window.pywebview.api.load_tomey_data_path) {
+                window.pywebview.api.load_tomey_data_path().then(function(path) {
+                    if (path) document.getElementById('tomey-data-path-display').value = path;
+                });
+            }
+        }
+    }
+
+    window.addEventListener('pywebviewready', loadSavedPath);
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.pywebview) loadSavedPath();
+    });
+
+    // Medmont 选择 (不变)
+    function selectAndConfigPath() {
+        if (!window.pywebview) return;
+        window.pywebview.api.select_and_configure_medmont().then(function(res) {
+            if (res.success) {
+                alert(res.message); 
+                document.getElementById('medmont-path-display').value = res.path;
+            } else {
+                alert('配置失败：\n' + res.error);
+            }
+        });
+    }
+
+    // Tomey 程序目录选择 (修改为选择文件夹)
+    function selectAndConfigTomeyPath() {
+        if (!window.pywebview) return;
+        
+        // 后端 API 需要修改为只选择文件夹
+        window.pywebview.api.select_and_configure_tomey().then(function(res) {
+            if (res.success) {
+                alert(res.message); 
+                document.getElementById('tomey-path-display').value = res.path;
+            } else {
+                alert('配置失败：\n' + res.error);
+            }
+        });
+    }
+
+    // Tomey 数据目录选择 (新增)
+    function selectAndConfigTomeyDataPath() {
+        if (!window.pywebview) return;
+        
+        window.pywebview.api.select_and_configure_tomey_data().then(function(res) {
+            if (res.success) {
+                alert(res.message); 
+                document.getElementById('tomey-data-path-display').value = res.path;
+            } else {
+                alert('配置失败：\n' + res.error);
+            }
+        });
+    }
+</script>
+{% endblock %}

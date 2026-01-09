@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    <style>
+        .navbar-vertical.navbar-expand-lg[data-bs-theme="write"] {
+            background-color: white !important;
+        }
+    </style>
+    <style>
+        .navbar.navbar-expand-md {
+            background-color: white !important;
+            {#background: linear-gradient( 180deg, #2CC0A0 0%, #6FD4BB 100%);;#}
+        }
+    </style>
+
+{% endblock %}
+
+{% block main %}
+<div class="page">
+      <!-- Navbar -->
+      <header class="navbar navbar-expand-md d-none d-lg-flex d-print-none">
+        <div class="container-xl">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <!-- <div class="navbar-nav flex-row order-md-last">
+            <div class="nav-item dropdown">
+              <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                <span class="avatar avatar-sm" style="background-image: url({% static "img/login/avatar_default_image.png" %})"></span>
+                <div class="d-none d-xl-block ps-2">
+                  <div>Paweł Kuna</div>
+                  <div class="mt-1 small text-secondary">UI Designer</div>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <a href="{% url "profile" %}" class="dropdown-item"></a>
+                <div class="dropdown-divider"></div>
+                <a href="{% url "login" %}" class="dropdown-item">退出登录</a>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="collapse navbar-collapse" id="navbar-menu">
+          </div> -->
+        </div>
+      </header>
+      <!-- Sidebar -->
+      <aside class="navbar navbar-vertical navbar-expand-lg" data-bs-theme="write">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-menu" aria-controls="sidebar-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="navbar-brand navbar-brand-autodark navbar-title">
+            <a href="/">
+              <!-- <img src="{% static "img/login/FigmaDDSSlicePNGec1bb3b8ecfb646d9187a1d5d20bb31f.png" %}" width="110" height="32" alt="Tabler" class="navbar-brand-image"> -->
+               <img src="{% static "img/login/FigmaDDSSlicePNGec1bb3b8ecfb646d9187a1d5d20bb31f.png" %}" width="150" height="32">
+            </a>
+            <!-- <span style="margin-left: 10px; font-family: 'Roboto', sans-serif; font-size: 18px; color: #333;">普诺瞳 AI</span> -->
+          </div>
+
+          <div class="collapse navbar-collapse" id="sidebar-menu">
+            <ul class="navbar-nav pt-lg-3 ">
+              <li class="nav-item dropdown">
+                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="dropdownMenuButton" data-bs-auto-close="false" role="button" aria-expanded="true">
+                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5"></path><path d="M12 12l8 -4.5"></path><path d="M12 12l0 9"></path><path d="M12 12l-8 -4.5"></path><path d="M16 5.25l-8 4.5"></path></svg>
+                    </span>
+                    <span class="nav-link-title">
+                        主页
+                    </span>
+                </a>
+                 <div class="dropdown-menu show" id="myDropdownMenu"> <!-- 这里添加了show类 -->
+                    <div class="dropdown-menu-columns">
+                        <div class="dropdown-menu-column">
+                            <a class="dropdown-item" href="{% url "patient_list" %}">
+                                历史病例
+                            </a>
+                            <a class="dropdown-item" href="{% url "export_customized" %}">
+                                导出定制
+                            </a>
+                            <a class="dropdown-item" href="{% url "print_page" %}">
+                                打印报告
+                            </a>
+                            <a class="dropdown-item" href="{% url "settings_page" %}">
+                                配置设置
+                            </a>
+                            <!-- <a class="dropdown-item" href="{% url "import_customized" %}">
+                                上传定制
+                            </a> -->
+                            <!-- <a class="dropdown-item" href="{% url "export_reviewed" %}">
+                                导出复查
+                            </a>
+                            <a class="dropdown-item" href="{% url "import_reviewed" %}">
+                                上传复查
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+              </li>
+              <!-- <li class="nav-item dropdown ">
+                <a class="nav-link" href="#">
+                  <span class="nav-link-icon d-md-none d-lg-inline-block">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M15 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path><path d="M6 3m0 3a3 3 0 0 1 3 -3h6a3 3 0 0 1 3 3v0a3 3 0 0 1 -3 3h-6a3 3 0 0 1 -3 -3z"></path><path d="M9 9a3 3 0 0 0 0 6h3m-3 0a3 3 0 1 0 3 3v-15"></path></svg>
+                  </span>
+                  <span class="nav-link-title">
+                    病例管理
+                  </span>
+                </a>
+              </li> -->
+            </ul>
+          </div>
+        </div>
+      </aside>
+      <div class="page-wrapper">
+        {% block content %}
+        {% endblock %}
+      </div>
+</div>
+{% endblock %}

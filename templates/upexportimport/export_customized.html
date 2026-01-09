@@ -1,0 +1,117 @@
+{% extends "headers.html" %}
+{% load static %}
+
+{% block title %}导出定制数据{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="container-xl">
+        <div class="page-header d-print-none">
+            <div class="row align-items-center">
+                <div class="col"><h2 class="page-title">选择要导出的患者数据</h2></div>
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="card">
+                <div class="card-header"><h3 class="card-title">患者列表</h3></div>
+                <div class="table-responsive">
+                    <table class="table card-table table-vcenter text-nowrap datatable">
+                        <thead>
+                            <tr>
+                                <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox" id="select-all-checkbox" title="全选/取消全选"></th>
+                                <th>姓名</th>
+                                <th>病历号</th>
+                                <th>性别</th>
+                                <th>年龄</th>
+                                <th>导出次数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for patient in patients %}
+                            <tr>
+                                <td><input class="form-check-input m-0 align-middle patient-checkbox" type="checkbox" value="{{ patient.id }}"></td>
+                                <td>{{ patient.name }}</td>
+                                <td>{{ patient.medical_record_number|default:"-" }}</td>
+                                <td>{{ patient.gender }}</td>
+                                <td>{{ patient.age }}</td>
+                                <td>{{ patient.export_count }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr><td colspan="6" class="text-center">暂无患者数据</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer text-end">
+                    <button type="button" class="btn btn-primary" onclick="handleExportClick()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><polyline points="7 11 12 16 17 11" /><line x1="12" y1="4" x2="12" y2="16" /></svg>
+                        导出选中项为 xlsx 文件
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-blur fade" id="loadingExportModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="spinner-border" role="status"></div>
+                <p class="mt-2">正在生成导出文件，请稍候...</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAllCheckbox = document.getElementById('select-all-checkbox');
+    const patientCheckboxes = document.querySelectorAll('.patient-checkbox');
+
+    if(selectAllCheckbox) {
+        selectAllCheckbox.addEventListener('change', function() {
+            patientCheckboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+        });
+    }
+});
+
+// 新的导出处理函数
+function handleExportClick() {
+    const selectedIds = [];
+    document.querySelectorAll('.patient-checkbox:checked').forEach(checkbox => {
+        selectedIds.push(checkbox.value);
+    });
+
+    if (selectedIds.length === 0) {
+        alert('请至少选择一个要导出的患者。');
+        return;
+    }
+
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingExportModal'));
+    loadingModal.show();
+
+    // 获取当前登录用户名
+    const currentUsername = '{{ request.user.username }}';
+
+    // 通过 pywebview 调用后端的 Python 函数，传递用户名
+    window.pywebview.api.export_patients(selectedIds, currentUsername).then(response => {
+        // Python 处理完成后，我们在这里关闭弹窗并显示结果
+        loadingModal.hide();
+        if (response.success) {
+            alert('导出成功！\n文件已保存到：' + response.path);
+            // 刷新页面以显示最新的导出次数
+            window.location.reload();
+        } else {
+            alert('导出失败：\n' + response.error);
+        }
+    });
+}
+</script>
+{% endblock %}

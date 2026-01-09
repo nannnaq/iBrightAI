@@ -1,0 +1,24 @@
+{% extends "headers.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="page-body">
+      <div class="empty">
+          <div class="empty-icon"><!-- Download SVG icon from http://tabler-icons.io/i/mood-sad -->
+            <!-- SVG icon code -->
+          </div>
+          <p class="empty-title">No results found</p>
+          <p class="empty-subtitle text-muted">
+            Try adjusting your search or filter to find what you're looking for.
+          </p>
+          <div class="empty-action">
+            <a href="#" class="btn btn-primary">
+              <!-- Download SVG icon from http://tabler-icons.io/i/search -->
+              <!-- SVG icon code -->
+              Search again
+            </a>
+          </div>
+      </div>
+    </div>
+
+{% endblock %}

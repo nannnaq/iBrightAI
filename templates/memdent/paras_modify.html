@@ -1,0 +1,459 @@
+{#公共修改普通地址定制参数信息模版, 放在memdent中 #}
+{% extends "headers.html" %}
+{% block title %}修改参数{% endblock %}
+{% block content %}
+    <div class="page-wrapper">
+        <div class="container-xl">
+          <!-- Page title -->
+          <div class="page-header d-print-none">
+            <div class="row align-items-center">
+              <div class="col">
+                <h2 class="page-title">
+                  修改参数
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-body">
+          <div class="container-xl">
+            <div class="row row-cards">
+              <div class="col-md-6">
+{#              <form action="{% url "params_modify" ac_customization.pk %}" method="post" enctype="multipart/form-data">#}
+{#              {% csrf_token %}#}
+                <div class="g-col-6">
+                    <div class="card">
+                    <form action="{% url "params_modify" pk=ac_customization.pk %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <div class="card-header">
+                        <h3 class="card-title">参数名称</h3>
+                          <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="eye"></label>
+                          <div>
+                            <select hidden="hidden" class="form-select" id="acc_id" name="id">
+                              <option value={{ ac_customization.id }}  selected>acc_id</option>
+                            </select>
+                          </div>
+                      </div>
+                      </div>
+                        <div class="card-body grid">
+                            <div class="g-col-9">
+                            {% if basic_params_data.custom_type == "0" or basic_params_data.custom_type == "2" or basic_params_data.custom_type == "4" %}
+                                <div class="grid">
+                                  <div class="g-col-6">
+                                      <label class="form-label" for="ac_arc_k1">AC弧K值(D)</label>
+                                      <div>
+                                        <select class="form-select tomselected ts-hidden-accessible" id="ac_arc_k1" name="ac_arc_k1">
+                                            {% for ac_arc in choice_options.ac_arc_options %}
+                                                <option value="{{ ac_arc }}" {% if ac_customization.ac_arc_k1  == ac_arc %}selected{% endif %}>{{ ac_arc }}</option>
+                                            {% endfor %}
+                                        </select>
+                                      </div>
+                                  </div>
+                                  <div class="g-col-6">
+                                      <label class="form-label" for="base_arc_curvature_radius">基弧曲率半径(mm)</label>
+                                      <div>
+                                        <select class="form-select" id="base_arc_curvature_radius" name="base_arc_curvature_radius">
+                                            {% for radius in relationship %}
+                                                <option value="{{ radius.base_arc_curvature_radius }}" {% if ac_customization.base_arc_curvature_radius == radius.base_arc_curvature_radius %}selected{% endif %}>{{ radius.base_arc_curvature_radius|floatformat:2 }}</option>
+                                            {% endfor %}
+                                        </select>
+                                      </div>
+                                  </div>
+                                
+                                  <div class="g-col-6">
+                                      <label class="form-label" for="tac_position">Tac档位</label>
+                                      <div>
+                                          <select class="form-select" id="tac_position" name="tac_position" data-size="5">
+                                                {% for option in choice_options.tac_options %}
+                                                    <option value="{{ option.value }}" {% if ac_customization.tac_position == option.value %}selected{% endif %}>{{ option.label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                      </div>
+                                  </div>
+                                  <!-- <div class="g-col-6">
+                                      <label class="form-label" for="ace_position">ACe档位</label>
+                                      <div>
+                                          <select class="form-select" id="ace_position" name="ace_position" data-size="5">
+                                              {% for option in choice_options.ace_position_options %}
+                                                  <option value="{{ option.value }}" {% if ac_customization.ace_position == option.value %} selected {% endif %}>{{ option.label }}</option>
+                                              {% endfor %}
+                                        </select>
+                                      </div>
+                                  </div> -->
+                                  <!-- <div class="g-col-6">
+                                      <label class="form-label" for="reverse_arc_height">反转弧矢高</label>
+                                      <select class="form-select" id="reverse_arc_height" name="reverse_arc_height" data-size="5">
+                                              {% for option in choice_options.reverse_arc_height_options %}
+                                                  <option value="{{ option }}" {% if ac_customization.reverse_arc_height|floatformat:1 == option|floatformat:1 %}selected{% endif %}>{{ option }}</option>
+                                              {% endfor %}
+                                      </select>
+
+                                  </div> -->
+                                  <div class="g-col-6">
+                                      <label class="form-label" for="side_arc_position">边弧档位</label>
+                                      <div>
+                                        <select class="form-select" id="side_arc_position" name="side_arc_position">
+                                            {% for option in choice_options.side_arc_position_options %}
+                                               <option value="{{ option.value }}" {% if ac_customization.side_arc_position == option.value %}selected{% endif %}>{{ option.label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                      </div>
+                                  </div>
+                                </div>
+                            {% elif basic_params_data.custom_type == "1" or basic_params_data.custom_type == "3" or basic_params_data.custom_type == "5" %}
+                                <div class="grid">
+                                  <div class="g-col-6 g-col-md-4">
+                                      <label class="form-label" for="ac_arc_k1">AC弧K1</label>
+                                      <div>
+                                        <select class="form-select tomselected ts-hidden-accessible" id="ac_arc_k1" name="ac_arc_k1">
+                                            {% for ac_arc in choice_options.ac_arc_options %}
+                                                <option value="{{ ac_arc }}" {% if ac_customization.ac_arc_k1  == ac_arc %}selected{% endif %}>{{ ac_arc }}</option>
+                                            {% endfor %}
+                                        </select>
+                                      </div>
+                                  </div>
+                                  <div class="g-col-6 g-col-md-4">
+                                      <label class="form-label" for="ac_arc_k2">AC弧K2</label>
+                                      <div>
+                                       <select class="form-select tomselected ts-hidden-accessible" id="ac_arc_k2" name="ac_arc_k2">
+                                            {% for ac_arc in choice_options.ac_arc_options %}
+                                                <option value="{{ ac_arc }}" {% if ac_customization.ac_arc_k2  == ac_arc %}selected{% endif %}>{{ ac_arc }}</option>
+                                            {% endfor %}
+                                        </select>
+                                      </div>
+                                  </div>
+                                  <div class="g-col-6 g-col-md-4">
+                                      <label class="form-label" for="ac_arc_k3">AC弧K3</label>
+                                      <div>
+                                        <select class="form-select tomselected ts-hidden-accessible" id="ac_arc_k3" name="ac_arc_k3">
+                                            {% for ac_arc in choice_options.ac_arc_options %}
+                                                <option value="{{ ac_arc }}" {% if ac_customization.ac_arc_k3  == ac_arc %}selected{% endif %}>{{ ac_arc }}</option>
+                                            {% endfor %}
+                                        </select>
+                                      </div>
+                                  </div>
+                                  <div class="g-col-6 g-col-md-4">
+                                      <label class="form-label" for="ac_arc_k4">AC弧K4</label>
+                                      <div>
+                                       <select class="form-select tomselected ts-hidden-accessible" id="ac_arc_k4" name="ac_arc_k4">
+                                            {% for ac_arc in choice_options.ac_arc_options %}
+                                                <option value="{{ ac_arc }}" {% if ac_customization.ac_arc_k4  == ac_arc %}selected{% endif %}>{{ ac_arc }}</option>
+                                            {% endfor %}
+                                        </select>
+                                      </div>
+                                  </div>
+                                  <div class="g-col-6 g-col-md-4">
+                                      <label class="form-label" for="base_arc_curvature_radius">基弧曲率半径(mm)</label>
+                                      <div>
+                                        <select class="form-select" id="base_arc_curvature_radius" name="base_arc_curvature_radius">
+                                            {% for radius in relationship %}
+                                                <option value="{{ radius.base_arc_curvature_radius }}" {% if ac_customization.base_arc_curvature_radius == radius.base_arc_curvature_radius %}selected{% endif %}>{{ radius.base_arc_curvature_radius }}</option>
+                                            {% endfor %}
+                                        </select>
+                                  </div>
+                                  </div>
+                                  <div class="g-col-6 g-col-md-4">
+                                      <label class="form-label" for="axis">轴位</label>
+                                      <div>
+                                        <input type="text" class="form-control"  placeholder="请输入…" id="axis" name="axis" value="{{ ac_customization.axis }}">
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="grid">
+                                  <div class="g-col-6 g-col-md-4">
+                                      <label class="form-label" for="ace_position">ACe档位</label>
+                                      <div>
+                                          <select class="form-select" id="ace_position" name="ace_position" data-size="5">
+                                              {% for option in choice_options.ace_position_options %}
+                                                  <option value="{{ option.value }}" {% if ac_customization.ace_position == option.value %}selected{% endif %}>{{ option.label }}</option>
+                                              {% endfor %}
+                                        </select>
+                                      </div>
+                                  </div>
+                                  <div class="g-col-6 g-col-md-4">
+                                      <label class="form-label" for="reverse_arc_height">反转弧矢高</label>
+                                      <select class="form-select" id="reverse_arc_height" name="reverse_arc_height" data-size="5">
+                                              {% for option in choice_options.reverse_arc_height_options %}
+                                                  <option value="{{ option }}" {% if ac_customization.reverse_arc_height|floatformat:1 == option|floatformat:1 %}selected{% endif %}>{{ option }}</option>
+                                              {% endfor %}
+                                        </select>
+                                  </div>
+                                  <div class="g-col-6 g-col-md-4">
+                                      <label class="form-label" for="side_arc_position">边弧档位</label>
+                                      <div>
+                                        <select class="form-select" id="side_arc_position" name="side_arc_position">
+                                            {% for option in choice_options.side_arc_position_options %}
+                                               <option value="{{ option.value }}" {% if ac_customization.side_arc_position == option.value %}selected{% endif %}>{{ option.label }}</option>
+                                            {% endfor %}
+                                        </select>
+        {#                                <input type="text" class="form-control"  placeholder="请输入…" id="side_arc_position" name="side_arc_position" value="{{ right_ac_customization.side_arc_position }}">#}
+                                      </div>
+                                  </div>
+                                </div>
+                            {% endif %}
+                           </div >
+                        </div>
+                        <div class="card-footer text-end">
+                          <button href="#" class="btn btn-primary" type="button" onclick="showLoadingModal(this)">
+                            替换参数
+                          </button>
+                          <a href="{% url 'patient_detail' pk=ac_customization.patient.id %}" class="btn btn-secondary">返回详情页</a>
+                          <!-- <a href="#" class="btn btn-secondary" onclick="history.back(); return false;">返回上一页</a> -->
+                        </div>
+                    </form>
+                    </div>
+                </div>
+                <div class="g-col-6">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">图表数据（测试使用）</h3>
+                          <div class="g-col-6 g-col-md-3">
+                      </div>
+                      </div>
+                        <div class="card-body">
+    {#                        <div class="g-col-9">#}
+                              <div>
+                                  {% if basic_params_data.custom_type == "0" or basic_params_data.custom_type == "2" %}
+                                    <p>平k,镜片高度</p>
+                                    <p>{{ ac_customization.tear_film_data.ping_k_lens_height }}</p>
+                                    <p>平k,角度1,角膜高度</p>
+                                    <p>{{ ac_customization.tear_film_data.ping_k_radius_list01 }}</p>
+                                    <p>平k,角度2,角膜高度</p>
+                                    <p>{{ ac_customization.tear_film_data.ping_k_radius_list02 }}</p>
+                                    <br>
+                                    <p>陡k,镜片高度</p>
+                                    <p>{{ ac_customization.tear_film_data.steep_k_lens_height }}</p>
+                                    <p>陡k,角度1,角膜高度</p>
+                                    <p>{{ ac_customization.tear_film_data.steep_k_radius_list01 }}</p>
+                                    <p>陡k,角度2,角膜高度</p>
+                                    <p>{{ ac_customization.tear_film_data.steep_k_radius_list02 }}</p>
+                                {% elif basic_params_data.custom_type == "1" or basic_params_data.custom_type == "3" %}
+                                    <p>平k,角度1,镜片高度</p>
+                                    <p>{{ ac_customization.tear_film_data.ping_k_lens_height_01 }}</p>
+                                    <p>平k,角度1,角膜高度</p>
+                                    <p>{{ ac_customization.tear_film_data.ping_k_radius_list01 }}</p>
+
+                                    <p>平k,角度2,镜片高度</p>
+                                    <p>{{ ac_customization.tear_film_data.ping_k_lens_height_02 }}</p>
+                                    <p>平k,角度2,角膜高度</p>
+                                    <p>{{ ac_customization.tear_film_data.ping_k_radius_list02 }}</p>
+
+                                    <p>平k,角度3,镜片高度</p>
+                                    <p>{{ ac_customization.tear_film_data.ping_k_lens_height_03 }}</p>
+                                    <p>平k,角度3,角膜高度</p>
+                                    <p>{{ ac_customization.tear_film_data.ping_k_radius_list03 }}</p>
+
+                                    <p>平k,角度4,镜片高度</p>
+                                    <p>{{ ac_customization.tear_film_data.ping_k_lens_height_04 }}</p>
+                                    <p>平k,角度4,角膜高度</p>
+                                    <p>{{ ac_customization.tear_film_data.ping_k_radius_list04 }}</p>
+                                    <br>
+                                {% endif %}
+                              </div>
+    {#                       </div >#}
+                        </div>
+
+                    </div>
+                </div>
+{#              </form>#}
+              </div>
+              <div class="col-md-6">
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <h3 class="card-title">图片</h3>
+                  </div>
+                  <div class="list-group list-group-flush list-group-hoverable">
+{#                  {% if basic_params_data.custom_type == "0" or basic_params_data.custom_type == "2" %}#}
+                    <div class="list-group-item">
+                        <div class="row align-items-center">
+                            <div id="chart1" style="width: 100%; height: 300px;"></div>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="row align-items-center">
+                            <div id="chart2" style="width: 100%; height: 300px;"></div>
+                        </div>
+                    </div>
+{#                  {% endif %}#}
+                    <div class="list-group-item">
+                        <div class="row align-items-center">
+                            {% if basic_params_data.custom_type == "0" or basic_params_data.custom_type == "2" or basic_params_data.custom_type == "4" %}
+                                {% if ac_customization.fluorescent_staining_image %}
+                                    <img src="{{ ac_customization.fluorescent_staining_image.url }}" alt="荧光染色图" style="width: 100%; height: auto;">
+                                {% else %}
+                                    <p>暂无荧光染色图</p>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {#处理弹窗#}
+<div class="container-xl">
+    <div class="modal modal-blur fade" id="Loading_modal01" tabindex="-1" role="dialog" aria-hidden="true"
+         data-backdrop="static" data-keyboard="false" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered" role="patient">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">处理中</h5>
+{#            <button type="button" class="btn-close" id="cancelProcessing" aria-label="Close"></button>#}
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+                <label class="form-label">处理中，请稍候...</label>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+    {% include "upstateremind/message_toast.html" %}
+
+
+{% endblock %}
+
+
+
+{% block javascript %}
+<script>
+
+
+    // 初始化ECharts实例
+    var chart1 = echarts.init(document.getElementById('chart1'));
+    var chart2 = echarts.init(document.getElementById('chart2'));
+
+    // 数据
+    var tearFilmData = {{ ac_customization.tear_film_data|safe }};
+    console.log('tearFilmData:', tearFilmData);
+    console.log('标记点坐标 - bc:', tearFilmData.bc, 'rc:', tearFilmData.rc, 'ac:', tearFilmData.ac, 'pc:', tearFilmData.pc);
+    console.log('标记点坐标验证:',
+    'bc:', tearFilmData.bc, '存在:', tearFilmData.tear_film_ping_k.x.includes(tearFilmData.bc),
+    'rc:', tearFilmData.rc, '存在:', tearFilmData.tear_film_ping_k.x.includes(tearFilmData.rc),
+    'ac:', tearFilmData.ac, '存在:', tearFilmData.tear_film_ping_k.x.includes(tearFilmData.ac),
+    'pc:', tearFilmData.pc, '存在:', tearFilmData.tear_film_ping_k.x.includes(tearFilmData.pc)
+);
+    // 配置项和数据
+    var option1 = {
+        title: {
+            text: '平K泪膜图'
+        },
+        tooltip: {
+            trigger: 'axis',
+            formatter: function(params) {
+                return 'X: ' + params[0].name + '<br/>Y: ' + params[0].value;
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: tearFilmData.tear_film_ping_k.x,
+            axisLabel: {
+                show: true // 隐藏X轴标签
+            }
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                show: true // 隐藏Y轴标签
+            }
+        },
+        series: [
+        {
+            name: 'y1',
+            data: tearFilmData.tear_film_ping_k.y,
+            type: 'line',
+            smooth: 0.6,
+            symbol: 'none',
+            lineStyle: {
+                width: 3,
+                color: '#1890ff'
+            },
+            areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    { offset: 0, color: 'rgba(24, 144, 255, 0.3)' },
+                    { offset: 1, color: 'rgba(24, 144, 255, 0.1)' }
+                ])
+            },
+
+        }
+    ]
+};
+
+    var option2 = {
+        title: {
+            text: '陡K泪膜图'
+        },
+        tooltip: {
+            trigger: 'axis',
+            formatter: function(params) {
+                return 'X: ' + params[0].name + '<br/>Y: ' + params[0].value;
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: tearFilmData.tear_film_steep_k.x,
+            axisLabel: {
+                show: false // 隐藏X轴标签
+            }
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                show: false // 隐藏Y轴标签
+            }
+        },
+        series: [
+            {
+                name: 'y1',
+                data: tearFilmData.tear_film_steep_k.y,
+                type: 'line',
+                smooth: 0.6, // 增加平滑度
+                symbol: 'none',
+                lineStyle: {
+                    width: 3, // 加粗线条
+                    color: '#1890ff' // 统一颜色
+                },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                        { offset: 0, color: 'rgba(24, 144, 255, 0.3)' },
+                        { offset: 1, color: 'rgba(24, 144, 255, 0.1)' }
+                    ])
+                }
+            }
+        ]
+    };
+
+    // 使用配置项显示图表
+    chart1.setOption(option1);
+    chart2.setOption(option2);
+</script>
+
+{#    兼容桌面版的处理弹窗问题#}
+<script>
+    function showLoadingModal(button) {
+        // 显示模态框
+        var modal = new bootstrap.Modal(document.getElementById('Loading_modal01'));
+        modal.show();
+
+        // 1秒后提交表单
+        setTimeout(function() {
+            button.form.submit();
+        }, 1000);
+    }
+
+    // 确保Bootstrap JS已加载
+    if (typeof bootstrap === 'undefined') {
+        console.error('Bootstrap JS未正确加载');
+    }
+</script>
+{% endblock %}

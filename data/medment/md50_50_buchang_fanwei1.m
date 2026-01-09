@@ -1,0 +1,72 @@
+clear;   % 清除所有变量
+clc;     % 清空命令窗口
+
+% 步骤 1: 从 Excel 中读取数据
+Z = xlsread('C:\Users\1003\Desktop\medment\1959.11.6.右.xlsx'); % 读取数据，假设这是50x50数组
+
+% 检查数据维度
+if size(Z, 1) ~= 50 || size(Z, 2) ~= 50
+    error('读取的矩阵不是50x50的，请检查输入文件。');
+end
+
+% 除去错误值（例如：-5e+020）
+Z(Z == -500000000000000000000) = NaN; % 修改不合理的值为 NaN
+
+% 步骤 2: 定义原始 X 和 Y 坐标范围
+x_range = linspace(-6, 6, 50); % 确保范围对应于 50x50 的 Z
+y_range = linspace(-6, 6, 50);
+[X, Y] = meshgrid(x_range, y_range); % 创建网格
+
+% 步骤 3: 输入角度和弦长
+angle = input('请输入角度（单位：度）：'); % 输入角度
+chord_length = input('请输入弦长：'); % 输入弦长
+
+% 计算坐标 (x, y)
+% 角度转换为弧度
+theta = deg2rad(angle);
+
+% 计算弦的中点坐标
+x = (chord_length / 2) * cos(theta); % 弦的中点X坐标
+y = (chord_length / 2) * sin(theta);  % 弦的中点Y坐标
+
+% 步骤 4: 确保 x 和 y 在数据的范围内
+x = max(min(x, 6), -6); % 限制范围在-6到6之间
+y = max(min(y, 6), -6); % 限制范围在-6到6之间
+
+% 步骤 5: 使用插值方法寻找对应的 Z 值
+Z_value = interp2(X, Y, Z, x, y, 'cubic'); % 使用三次插值方法
+
+% 判断 Z_value 是否为 NaN，如果是，则处理 NaN 值的情况
+if isnan(Z_value)
+    % 定义填充范围阈值
+    fill_range = 1; % 例如，只允许填充周围1个单位距离内的数据点
+    
+    % 获取当前坐标在网格中的索引
+    [~, x_idx] = min(abs(x_range - x));
+    [~, y_idx] = min(abs(y_range - y));
+    
+    % 提取填充范围内的数据
+    x_min_idx = max(1, x_idx - fill_range);
+    x_max_idx = min(length(x_range), x_idx + fill_range);
+    y_min_idx = max(1, y_idx - fill_range);
+    y_max_idx = min(length(y_range), y_idx + fill_range);
+    
+    Z_fill_region = Z(y_min_idx:y_max_idx, x_min_idx:x_max_idx);
+    
+    % 尝试用有效边界值填充 NaN
+    Z_filled = fillmissing(Z_fill_region, 'linear', 2); % 对行方向线性插值
+    Z_filled = fillmissing(Z_filled, 'linear', 1); % 对列方向线性插值
+    
+    % 将填充后的数据放回原矩阵
+    Z(y_min_idx:y_max_idx, x_min_idx:x_max_idx) = Z_filled;
+    
+    % 再次尝试插值
+    Z_value = interp2(X, Y, Z, x, y, 'linear'); % 再次使用三次插值方法
+end
+
+% 输出结果
+if isnan(Z_value)
+    fprintf('在指定的坐标 (%.2f, %.2f) 中没有有效的 Z 值，插值结果为 NaN。\n', x, y);
+else
+    fprintf('对应的数值是: %.4f\n', Z_value);
+end

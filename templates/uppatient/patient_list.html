@@ -1,0 +1,330 @@
+{% extends "headers.html" %}
+{% block css %}
+    <style>
+        .table-fixed-height {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .table-fixed-height thead {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+    </style>
+
+{% endblock css %}
+{% block content %}
+    <div class="container-xl">
+        <div class="row row-deck row-cards">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">患者病例管理</h3>
+                <div class="col-auto ms-auto d-print-none">
+                  <div class="btn-list">
+                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-report">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                        <path d="M9 12l6 0" />
+                        <path d="M12 9l0 6" />
+                      </svg>
+                      新建病例
+                    </a>
+                  </div>
+                </div>  
+              </div>
+
+              <div class="card-body border-bottom py-3">
+                <form action="{% url "patient_list" %}" method="get" class="row g-3 align-items-center">
+                  {% csrf_token %}
+                  <div class="col-md-2 col-6">
+                    <label class="form-label">姓名</label>
+                    <input type="text" class="form-control" placeholder="输入患者姓名" autocomplete="off" name="name" value="{{ request.GET.name }}">
+                  </div>
+      
+                  <div class="col-md-2 col-6">
+                    <label class="form-label">性别</label>
+                    <select class="form-select" name="gender">
+                      <option value="">全部</option>
+                      <option value="男" {% if request.GET.gender == '男' %}selected{% endif %}>男</option>
+                      <option value="女" {% if request.GET.gender == '女' %}selected{% endif %}>女</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-1 col-6">
+                    <label class="form-label">年龄</label>
+                    <input type="number" class="form-control" placeholder="年龄" autocomplete="off" name="age" min="0" value="{{ request.GET.age }}">
+                  </div>
+
+                  <div class="col-md-3 col-6">
+                      <label class="form-label">病历号</label>
+                      <input type="text" class="form-control" placeholder="输入病历号" autocomplete="off" name="medical_record_number" value="{{ request.GET.medical_record_number }}">
+                  </div>
+                  
+                  <div class="col-md-2 col-6">
+                    <label class="form-label">日期范围</label>
+                    <input type="date" class="form-control" name="create_date" value="{{ request.GET.create_date }}">
+                  </div>
+                  
+                  <div class="col-md-2 col-12 mt-md-4" >
+                    <div class="d-flex gap-2" style="margin-top: 20px;"  >
+                      <button class="btn btn-primary w-50" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                          <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                          <path d="M21 21l-6 -6"></path>
+                        </svg>
+                        搜索
+                      </button>
+                      <a href="{% url "patient_list" %}" class="btn btn-outline-secondary w-50">
+                        重置
+                      </a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <div class="table-responsive table-fixed-height" style="height: 600px; overflow-y: auto;">
+                <table class="table table-hover table-vcenter card-table">
+                  <thead style="position: sticky; top: 0; background: white; z-index: 1;">
+                    <tr>
+                      <th>姓名</th>
+                      <th>病历号</th>
+                      <th>性别</th>
+                      <th>年龄</th>
+                      <th>最后测试时间</th>
+                      <th>创建时间</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for item in cases %}
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="avatar avatar-sm me-2">{{ item.name|slice:":1" }}</span>
+                          <a href="{% url "patient_detail" pk=item.id %}" class="text-reset">{{ item.name }}</a>
+                        </div>
+                      </td>
+                      <td>{{ item.medical_record_number|default:"-" }}</td>
+                      <td>
+                          {% if item.gender == '男' %}
+                            <span class="badge bg-blue-lt">男</span>
+                          {% else %}
+                            <span class="badge bg-red-lt">女</span>
+                          {% endif %}
+                        </td>
+                      <td>{{ item.age }}</td>
+                      <td>{{ item.create_date|date:"Y-m-d" }}</td>
+                      <td>{{ item.create_date|date:"Y-m-d" }}</td>
+                      <td class="text-end">
+                        <div class="btn-list flex-nowrap">
+                          <a href="{% url "patient_detail" pk=item.id %}" class="btn btn-sm btn-icon" title="查看详情">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                              <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                              <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"></path>
+                            </svg>
+                          </a>
+                          <div class="dropdown">
+                            <button class="btn btn-sm btn-icon" data-bs-toggle="dropdown">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M4 6l16 0"></path>
+                                <path d="M4 12l16 0"></path>
+                                <path d="M4 18l16 0"></path>
+                              </svg>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" style="">
+                              <a class="dropdown-item" href="{% url "patient_detail" pk=item.id %}">
+                                Medmont-普通定制
+                              </a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="{% url "seour_patient_detail" pk=item.id %}">
+                                Suoer-普通定制
+                              </a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="{% url "tomey_patient_detail" pk=item.id %}">
+                                Tomey-普通定制
+                              </a>
+                              <div class="dropdown-divider"></div>
+                              
+                              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editModal"
+                                   data-id="{{ item.id }}" 
+                                   data-name="{{ item.name }}" 
+                                   data-phone="{{ item.phone|default:"" }}"
+                                   data-gender="{{ item.gender }}" 
+                                   data-age="{{ item.age }}" 
+                                   data-birth-date="{{ item.birth_date|date:'Y-m-d' }}"
+                                   data-medical-record-number="{{ item.medical_record_number|default:"" }}">
+                                    修改信息
+                                </a>
+                              <div class="dropdown-divider"></div>
+                                <button type="button" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{item.id}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M4 7l16 0"></path>
+                                            <path d="M10 11l0 6"></path>
+                                            <path d="M14 11l0 6"></path>
+                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                    </svg>
+                                    删除患者
+                                </button>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="card-footer d-flex align-items-center">
+                <p class="m-0 text-muted">
+                  显示 <span>{{ page_obj.start_index }}</span> 至 <span>{{ page_obj.end_index }}</span> 条，共 <span>{{ page_obj.paginator.count }}</span> 条记录
+                </p>
+                <ul class="pagination m-0 ms-auto">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                          <path d="M15 6l-6 6l6 6"></path>
+                        </svg>
+                      </a>
+                    </li>
+                  {% endif %}
+                  
+                  {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                      <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                    {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
+                      <li class="page-item"><a class="page-link" href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ num }}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                  
+                  {% if page_obj.has_next %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                          <path d="M9 6l6 6l-6 6"></path>
+                        </svg>
+                      </a>
+                    </li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+{#    // 在页面底部添加删除确认弹窗#}
+    {% for item in cases %}
+    <div class="modal modal-blur fade" id="deleteModal{{item.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 9v2m0 4v.01"></path>
+                        <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
+                    </svg>
+                    <h3>确认删除?</h3>
+                    <div class="text-muted">确定要删除患者 <strong>{{item.name}}</strong> 的所有数据吗？此操作无法撤销。</div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn w-100" data-bs-dismiss="modal">取消</button>
+                            </div>
+                            <div class="col">
+                                <form action="{% url 'patient_delete' pk=item.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger w-100">确认删除</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+    {% include "uppatient/list_modals.html" %}
+    {% include "uppatient/update_patient.html" %}
+    {% include "uppatient/create_patient.html" %}
+{% endblock %}
+
+{% block javascript %}
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editModal = document.getElementById('editModal');
+        if (editModal) {
+            editModal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                
+                // 获取数据
+                const id = button.getAttribute('data-id');
+                const name = button.getAttribute('data-name');
+                const phone = button.getAttribute('data-phone');
+                const gender = button.getAttribute('data-gender');
+                const age = button.getAttribute('data-age');
+                const medicalRecordNumber = button.getAttribute('data-medical-record-number');
+                
+                // ⬇️ 关键修改：改为读取 data-birth-date
+                const birthDate = button.getAttribute('data-birth-date'); 
+
+                const form = editModal.querySelector('form');
+                form.action = "{% url 'patient_update' pk=0 %}".replace('0', id);
+
+                editModal.querySelector('#edit-id').value = id;
+                editModal.querySelector('#edit-name').value = name;
+                editModal.querySelector('#edit-phone').value = phone;
+                editModal.querySelector('#edit-age').value = age;
+                editModal.querySelector('#edit-medical-record-number').value = medicalRecordNumber;
+                
+                // 设置性别
+                if (gender === '男') {
+                    editModal.querySelector('#edit-gender-male').checked = true;
+                } else if (gender === '女') {
+                    editModal.querySelector('#edit-gender-female').checked = true;
+                }
+
+                // ⬇️ 关键修改：找到正确的 ID (#edit-birth-date) 并赋值
+                const birthInput = editModal.querySelector('#edit-birth-date');
+                if (birthInput) {
+                    birthInput.value = birthDate;
+                }
+                
+                // 自动计算年龄（当修改出生日期时）
+                const ageInput = editModal.querySelector('#edit-age');
+                if (birthInput && ageInput) {
+                    birthInput.addEventListener('change', function() {
+                        if (this.value) {
+                            const today = new Date();
+                            const birth = new Date(this.value);
+                            let newAge = today.getFullYear() - birth.getFullYear();
+                            const m = today.getMonth() - birth.getMonth();
+                            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+                                newAge--;
+                            }
+                            ageInput.value = newAge;
+                        }
+                    });
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

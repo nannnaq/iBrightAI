@@ -1,0 +1,148 @@
+<div class="modal modal-blur fade" id="modal-report" tabindex="-1"  aria-hidden="true" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">新建患者</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+          <form action="{% url "create_case" %}" method="post">
+              {% csrf_token %}
+                <div class="modal-body">
+                    <!-- 错误提示区域 -->
+                    <div id="formErrors" class="alert alert-danger d-none"></div>
+
+                    <div class="row">
+                          <div class="col-lg-6">
+                            <div class="mb-3">
+                              <label class="form-label require" for="text_name">
+                                  姓名<span class="text-danger">*</span>
+                              </label>
+                              <input id="text_name" type="text" class="form-control" name="name" placeholder="请输入患者姓名">
+                              <div class="invalid-feedback">请输入患者姓名</div>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="mb-3">
+                              <label class="form-label require" for="date_birth_date">
+                                  出生日期<span class="text-danger">*</span>
+                              </label>
+                              <input id="date_birth_date" type="date" class="form-control" name="birth_date" min="1900-01-01" max="2099-12-31">
+                              <div class="invalid-feedback">请选择出生日期</div>
+                            </div>
+                          </div>
+                           <!-- 性别选择 -->
+                          <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label d-block">
+                                  性别 <span class="text-danger">*</span>
+                                </label>
+                                <div class="btn-group" role="group">
+                                  <input type="radio" class="btn-check" name="gender" id="text_gender_male" value="男" required>
+                                  <label class="btn btn-outline-primary" for="text_gender_male">男</label>
+
+                                  <input type="radio" class="btn-check" name="gender" id="text_gender_female" value="女">
+                                  <label class="btn btn-outline-primary" for="text_gender_female">女</label>
+                                </div>
+                              </div>
+                            </div>
+
+                          <div class="col-lg-6">
+                            <div class="mb-3">
+                              <label class="form-label" for="text_iphone">
+                                联系方式 
+                                <!-- <span class="text-danger">*</span> -->
+                              </label>
+                              <input id="text_iphone" 
+                                     type="tel" 
+                                     name="phone" 
+                                     class="form-control" 
+                                     pattern="1[3-9]\d{9}" 
+                                     placeholder="请输入11位手机号">
+                              <div class="invalid-feedback">请输入有效的手机号码</div>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="mb-3">
+                              <label class="form-label" for="age">
+                                年龄 <span class="text-danger">*</span>
+                              </label>
+                              <input id="age" 
+                                     type="number" 
+                                     name="age" 
+                                     class="form-control" 
+                                     min="0" 
+                                     max="120" 
+                                        placeholder="根据出生日期自动计算"
+                                        readonly> <div class="invalid-feedback">请输入0-120之间的有效年龄</div>
+                              </div>
+                          </div>
+                          <div class="col-lg-6">
+                              <div class="mb-3">
+                                <label class="form-label" for="medical_record_number">
+                                    病历号
+                                </label>
+                                <input id="medical_record_number"
+                                  type="text"
+                                  name="medical_record_number"
+                                  class="form-control"
+                                  placeholder="请输入病历号">
+                              </div>
+                          </div>
+                      </div>
+                </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                <button type="reset" class="btn btn-outline-secondary">重置</button>
+                <button type="submit" class="btn btn-primary" >保存</button>
+              </div>
+           </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 专门为“新建患者”弹窗获取元素
+    const createBirthDateInput = document.querySelector('#modal-report #date_birth_date');
+    const createAgeInput = document.querySelector('#modal-report #age');
+
+    // 定义计算年龄的函数
+    function calculateAgeForCreateForm() {
+        const birthDateString = createBirthDateInput.value;
+        
+        // 如果出生日期为空，则清空年龄
+        if (!birthDateString) {
+            createAgeInput.value = '';
+            return;
+        }
+
+        const birthDate = new Date(birthDateString);
+        const today = new Date();
+
+        // 检查日期有效性
+        if (isNaN(birthDate.getTime()) || birthDate > today) {
+            createAgeInput.value = '';
+            return;
+        }
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+
+        // 如果今年的生日还没到，年龄需要减 1
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
+        // 更新年龄输入框的值
+        createAgeInput.value = Math.max(0, age);
+    }
+
+    // 为“出生日期”输入框添加 'change' 事件监听
+    if (createBirthDateInput) {
+        createBirthDateInput.addEventListener('change', calculateAgeForCreateForm);
+    }
+});
+</script>

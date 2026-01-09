@@ -1,0 +1,1322 @@
+{% load static %}
+
+<br/>
+    <div class="grid">
+{#        右眼基本参数信息#}
+        <div class="g-col-6">
+          <div class="card">
+          <form action="{% url "tomey_create_4_customize" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <div class="card-header">
+            <img
+                class="label_1"
+                referrerpolicy="no-referrer"
+                src="{% static "img/home/FigmaDDSSlicePNG7bd26e98e8d9dbe4dda3fcfae79a2a0e.png" %}"
+              />
+              <h3 class="card-title">基本参数信息(右眼)</h3>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="eye"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="eye" name="eye">
+                      <option value="right" {% if right_basic_params.eye == 'right' %}selected{% endif %}  selected>右眼</option>
+                    </select>
+                  </div>
+              </div>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="patient01"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="patient01" name="patient">
+                      <option value="{{ object.id }}" selected>病人id</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+                <div class="card-body">
+                    <div class="grid">
+                      <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="lens_type">镜片类型</label>
+                          <div>
+                            <select class="form-select" id="lens_type" name="lens_type">
+                              <option value="s" {% if right_basic_params.lens_type == 's' %}selected{% endif %} >S</option>
+                              <option value="A" {% if right_basic_params.lens_type == 'A' %}selected{% endif %} >A</option>
+                              <option value="PRO" {% if right_basic_params.lens_type == 'PRO' %}selected{% endif %} >PRO</option>
+                            </select>
+                          </div>
+                      </div>
+{#                      <div class="g-col-6 g-col-md-3">#}
+{#                          <label class="form-label" for="ring_cus">环曲定制</label>#}
+{#                          <div>#}
+{#                            <select id='ring_cus' class="form-select" name="ring_cus">#}
+{#                              <option value="0" {% if right_basic_params.ring_cus == '0' %}selected{% endif %} >否</option>#}
+{#                              <option value="1" {% if right_basic_params.ring_cus == '1' %}selected{% endif %}>是</option>#}
+{#                            </select>#}
+{#                          </div>#}
+{#                      </div>#}
+{#                      <div class="g-col-6 g-col-md-3">#}
+{#                          <label class="form-label" for="ac_cus">AC定制</label>#}
+{#                          <div>#}
+{#                            <select class="form-select" id="ac_cus" name="ac_cus">#}
+{#                              <option value="0" {% if right_basic_params.ac_cus == '0' %}selected{% endif %}>否</option>#}
+{#                              <option value="1" {% if right_basic_params.ac_cus == '1' %}selected{% endif %}>是</option>#}
+{#                            </select>#}
+{#                          </div>#}
+{#                      </div>#}
+                      <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="overall_diameter">总直径(mm)</label>
+                          <div>
+                            <select class="form-select" id="overall_diameter" name="overall_diameter">
+                              <option value="10.2" {% if right_basic_params.overall_diameter == 10.2 %}selected{% endif %}>10.2</option>
+                              <option value="10.4" {% if right_basic_params.overall_diameter == 10.4 %}selected{% endif %}>10.4</option>
+                              <option value="10.6" {% if right_basic_params.overall_diameter == 10.6 %}selected{% endif %}>10.6</option>
+                              <option value="10.8" {% if right_basic_params.overall_diameter == 10.8 %}selected{% endif %}>10.8</option>
+                              <option value="11.0" {% if right_basic_params.overall_diameter == 11.0 %}selected{% endif %}>11.0</option>
+                              <option value="11.2" {% if right_basic_params.overall_diameter == 11.2 %}selected{% endif %}>11.2</option>
+                              <option value="11.4" {% if right_basic_params.overall_diameter == 11.4 %}selected{% endif %}>11.4</option>
+                              <option value="11.6" {% if right_basic_params.overall_diameter == 11.6 %}selected{% endif %}>11.6</option>
+                              <option value="11.8" {% if right_basic_params.overall_diameter == 11.8 %}selected{% endif %}>11.8</option>
+                              <option value="12.0" {% if right_basic_params.overall_diameter == 12.0 %}selected{% endif %}>12.0</option>
+                            </select>
+                          </div>
+                      </div>
+                    </div>
+
+                   <div class="grid">
+
+                      <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="optical_zone_diameter">治疗区直径(mm)</label>
+                          <div>
+                            <select class="form-select" id="optical_zone_diameter" name="optical_zone_diameter">
+                              <option value="5.0" {% if right_basic_params.optical_zone_diameter == 5.0 %}selected{% endif %}>5.0</option>
+                              <option value="5.2" {% if right_basic_params.optical_zone_diameter == 5.2 %}selected{% endif %}>5.2</option>
+                              <option value="5.4" {% if right_basic_params.optical_zone_diameter == 5.4 %}selected{% endif %}>5.4</option>
+                              <option value="5.6" {% if right_basic_params.optical_zone_diameter == 5.6 %}selected{% endif %}>5.6</option>
+                              <option value="5.8" {% if right_basic_params.optical_zone_diameter == 5.8 %}selected{% endif %}>5.8</option>
+                              <option value="6.0" {% if right_basic_params.optical_zone_diameter == 6.0 %}selected{% endif %}>6.0</option>
+                              <option value="6.2" {% if right_basic_params.optical_zone_diameter == 6.2 %}selected{% endif %}>6.2</option>
+                            </select>
+                          </div>
+                      </div>
+
+
+                      <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="ac_arc_width">AC弧径宽(mm)</label>
+                          <div>
+                              <input type="text" class="form-control"  placeholder="计算结果" id="ac_arc_width" name="ac_arc_width" readonly>
+                          </div>
+                      </div>
+                      <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="mirror_degree">球镜度(D)</label>
+                          <div>
+                            <input type="text" class="form-control"  placeholder="请输入…" id="mirror_degree" name="mirror_degree" value="{{ right_basic_params.mirror_degree }}">
+                          </div>
+                      </div>
+                      <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="cylindrical_power">柱镜度(D)</label>
+                          <div>
+                              {% if right_basic_params.cylindrical_power %}
+                                <input type="text" class="form-control"  placeholder="请输入…" id="cylindrical_power" name="cylindrical_power" value="{{ right_basic_params.cylindrical_power }}">
+                              {% else %}
+                                <input type="text" class="form-control"  placeholder="请输入…" id="cylindrical_power" name="cylindrical_power">
+                              {% endif %}
+                          </div>
+                      </div>
+                    </div>
+                    
+                    <div class="grid">
+                       <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="overpressure">过量压(D)</label>
+                          <div>
+                              {% if right_basic_params.cylindrical_power %}
+                                 <input type="text" class="form-control"  placeholder="请输入…" id="overpressure" name="overpressure" value="{{ right_basic_params.overpressure }}">
+                              {% else %}
+                                 <input type="text" class="form-control"  placeholder="请输入…" id="overpressure" name="overpressure">
+                              {% endif %}
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="hr-text">角膜地形图输入项</div>
+                    <div style="font-size: 0.8rem; color: #666; text-align: center; margin-bottom: 1rem;">
+                        (平K和陡K值以0.25为间隔)
+                    </div>
+
+                    <div class="grid">
+                          <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="flat_k">平K</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="flat_k" name="flat_k" value="{{ right_corneal_topography.flat_k }}" onchange="roundToQuarter(this)">
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="plane_angle">平角度</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="plane_angle" name="plane_angle" value="{{ right_corneal_topography.plane_angle }}">
+                              </div>
+                          </div>
+                           <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="steep_k">陡K(D)</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="steep_k" name="steep_k" value="{{ right_corneal_topography.steep_k }}" onchange="roundToQuarter(this)">
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="inclined_angle">斜角度</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="inclined_angle" name="inclined_angle" value="{{ right_corneal_topography.inclined_angle }}">
+                              </div>
+                          </div>
+                    </div>
+
+                   <div class="grid">
+
+                      <div class="g-col-6 g-col-md-4">
+                          <label class="form-label" for="corneal_file">半径文件</label>
+                          <div>
+                            <input type="file" class="form-control" id="corneal_file" name="corneal_file" value="{{ right_basic_params.corneal_file }}">
+                          </div>
+                      </div>
+                       <div class="g-col-6 g-col-md-4">
+                          <label class="form-label" for="corneal_file2">高度文件</label>
+                          <div>
+                            <input type="file" class="form-control" id="corneal_file2" name="corneal_file2" value="{{ right_basic_params.corneal_file2 }}">
+                          </div>
+                      </div>
+                    </div>
+                
+                
+                </div>
+                <div class="card-footer text-end">
+                  <button href="#" class="btn btn-primary" type="button" onclick="event.preventDefault(); $('#Loading_modal').modal('show'); setTimeout(()=>{this.form.submit()}, 1000);" data-bs-target="#Loading_modal" data-bs-toggle="modal">
+                      开始定制
+                    </button>
+                  <a href="#" class="btn btn-secondary">
+                    重新定制
+                  </a>
+                </div>
+            </form>
+          </div>
+        </div>
+{#        左眼基本参数信息#}
+        <div class="g-col-6">
+          <div class="card">
+          <form action="{% url "tomey_create_4_customize" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <div class="card-header">
+            <img
+                class="label_1"
+                referrerpolicy="no-referrer"
+                src="{% static "img/home/FigmaDDSSlicePNG7bd26e98e8d9dbe4dda3fcfae79a2a0e.png" %}"
+              />
+              <h3 class="card-title">基本参数信息(左眼)</h3>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="eye_l"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="eye_l" name="eye">
+                      <option value="left" {% if left_basic_params.eye == 'left' %}selected{% endif %}  selected>左眼</option>
+                    </select>
+                  </div>
+              </div>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="patient01_l"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="patient01_l" name="patient">
+                      <option value="{{ object.id }}" selected>病人id</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+                <div class="card-body">
+                    <div class="grid">
+                      <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="lens_type_l">镜片类型</label>
+                          <div>
+                            <select class="form-select" id="lens_type_l" name="lens_type">
+                              <option value="s" {% if left_basic_params.lens_type == 's' %}selected{% endif %} >S</option>
+                              <option value="A" {% if left_basic_params.lens_type == 'A' %}selected{% endif %} >A</option>
+                              <option value="PRO" {% if left_basic_params.lens_type == 'PRO' %}selected{% endif %} >PRO</option>
+                            </select>
+                          </div>
+                      </div>
+{#                      <div class="g-col-6 g-col-md-3">#}
+{#                          <label class="form-label" for="ring_cus_l">环曲定制</label>#}
+{#                          <div>#}
+{#                            <select id='ring_cus_l' class="form-select" name="ring_cus">#}
+{#                              <option value="0" {% if left_basic_params.ring_cus == '0' %}selected{% endif %} >否</option>#}
+{#                              <option value="1" {% if left_basic_params.ring_cus == '1' %}selected{% endif %}>是</option>#}
+{#                            </select>#}
+{#                          </div>#}
+{#                      </div>#}
+{#                      <div class="g-col-6 g-col-md-3">#}
+{#                          <label class="form-label" for="ac_cus_l">AC定制</label>#}
+{#                          <div>#}
+{#                            <select class="form-select" id="ac_cus_l" name="ac_cus">#}
+{#                              <option value="0" {% if left_basic_params.ac_cus == '0' %}selected{% endif %}>否</option>#}
+{#                              <option value="1" {% if left_basic_params.ac_cus == '1' %}selected{% endif %}>是</option>#}
+{#                            </select>#}
+{#                          </div>#}
+{#                      </div>#}
+                      <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="overall_diameter_l">总直径(mm)</label>
+                          <div>
+                            <select class="form-select" id="overall_diameter_l" name="overall_diameter">
+                              <option value="10.2" {% if left_basic_params.overall_diameter == 10.2 %}selected{% endif %}>10.2</option>
+                              <option value="10.4" {% if right_basic_params.overall_diameter == 10.4 %}selected{% endif %}>10.4</option>
+                              <option value="10.6" {% if left_basic_params.overall_diameter == 10.6 %}selected{% endif %}>10.6</option>
+                              <option value="10.8" {% if left_basic_params.overall_diameter == 10.8 %}selected{% endif %}>10.8</option>
+                              <option value="11.0" {% if left_basic_params.overall_diameter == 11.0 %}selected{% endif %}>11.0</option>
+                              <option value="11.2" {% if left_basic_params.overall_diameter == 11.2 %}selected{% endif %}>11.2</option>
+                              <option value="11.4" {% if left_basic_params.overall_diameter == 11.4 %}selected{% endif %}>11.4</option>
+                              <option value="11.6" {% if left_basic_params.overall_diameter == 11.6 %}selected{% endif %}>11.6</option>
+                              <option value="11.8" {% if left_basic_params.overall_diameter == 11.8 %}selected{% endif %}>11.8</option>
+                              <option value="12.0" {% if left_basic_params.overall_diameter == 12.0 %}selected{% endif %}>12.0</option>
+                            </select>
+                          </div>
+                      </div>
+                    </div>
+                   <div class="grid">
+                      <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="optical_zone_diameter_l">治疗区直径(mm)</label>
+                          <div>
+                            <select class="form-select" id="optical_zone_diameter_l" name="optical_zone_diameter">
+                              <option value="5.0" {% if left_basic_params.optical_zone_diameter == 5.0 %}selected{% endif %}>5.0</option>
+                              <option value="5.2" {% if left_basic_params.optical_zone_diameter == 5.2 %}selected{% endif %}>5.2</option>
+                              <option value="5.4" {% if left_basic_params.optical_zone_diameter == 5.4 %}selected{% endif %}>5.4</option>
+                              <option value="5.6" {% if left_basic_params.optical_zone_diameter == 5.6 %}selected{% endif %}>5.6</option>
+                              <option value="5.8" {% if left_basic_params.optical_zone_diameter == 5.8 %}selected{% endif %}>5.8</option>
+                              <option value="6.0" {% if left_basic_params.optical_zone_diameter == 6.0 %}selected{% endif %}>6.0</option>
+                              <option value="6.2" {% if left_basic_params.optical_zone_diameter == 6.2 %}selected{% endif %}>6.2</option>
+                            </select>
+                          </div>
+                      </div>
+
+                      <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="ac_arc_width_l">AC弧径宽(mm)</label>
+                          <div>
+                              <input type="text" class="form-control"  placeholder="计算结果" id="ac_arc_width_l" name="ac_arc_width" readonly>
+                          </div>
+                      </div>
+                      <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="mirror_degree_l">球镜度(D)</label>
+                          <div>
+                            <input type="text" class="form-control"  placeholder="请输入…" id="mirror_degree_l" name="mirror_degree" value="{{ left_basic_params.mirror_degree }}">
+                          </div>
+                      </div>
+                      <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="cylindrical_power_l">柱镜度(D)</label>
+                          <div>
+                              {% if left_basic_params.cylindrical_power %}
+                                <input type="text" class="form-control"  placeholder="请输入…" id="cylindrical_power" name="cylindrical_power" value="{{ left_basic_params.cylindrical_power }}">
+                              {% else %}
+                                <input type="text" class="form-control"  placeholder="请输入…" id="cylindrical_power" name="cylindrical_power">
+                              {% endif %}
+                          </div>
+                      </div>
+                    </div>
+                    <div class="grid">
+                       <div class="g-col-6 g-col-md-3">
+                          <label class="form-label" for="overpressure_l">过量压(D)</label>
+                          <div>
+                              {% if left_basic_params.overpressure %}
+                                 <input type="text" class="form-control"  placeholder="请输入…" id="overpressure_l" name="overpressure_l" value="{{ left_basic_params.overpressure }}">
+                              {% else %}
+                                 <input type="text" class="form-control"  placeholder="请输入…" id="overpressure_l" name="overpressure_l">
+                              {% endif %}
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="hr-text">角膜地形图输入项</div>
+                    <div style="font-size: 0.8rem; color: #666; text-align: center; margin-bottom: 1rem;">
+                        (平K和陡K值以0.25为间隔)
+                    </div>
+
+                    <div class="grid">
+                          <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="flat_k_l">平K</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="flat_k_l" name="flat_k" value="{{ left_corneal_topography.flat_k }}" onchange="roundToQuarter(this)">
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="plane_angle_l">平角度</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="plane_angle_l" name="plane_angle" value="{{ left_corneal_topography.plane_angle }}">
+                              </div>
+                          </div>
+                           <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="steep_k_l">陡K(D)</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="steep_k_l" name="steep_k" value="{{ left_corneal_topography.steep_k }}" onchange="roundToQuarter(this)">
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="inclined_angle_l">斜角度</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="inclined_angle_l" name="inclined_angle" value="{{ left_corneal_topography.inclined_angle }}">
+                              </div>
+                          </div>
+                    </div>
+
+                   <div class="grid">
+
+                      <div class="g-col-6 g-col-md-4">
+                          <label class="form-label" for="corneal_file_l">半径文件</label>
+                          <div>
+                            <input type="file" class="form-control" id="corneal_file_l" name="corneal_file" value="{{ left_basic_params.corneal_file }}">
+                          </div>
+                      </div>
+                      <div class="g-col-6 g-col-md-4">
+                          <label class="form-label" for="corneal_file_l_2">高度文件</label>
+                          <div>
+                            <input type="file" class="form-control" id="corneal_file_l_2" name="corneal_file2" value="{{ left_basic_params.corneal_file2 }}">
+                          </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="card-footer text-end">
+                  <button href="#" class="btn btn-primary" type="button" onclick="event.preventDefault(); $('#Loading_modal').modal('show'); setTimeout(()=>{this.form.submit()}, 1000);" data-bs-target="#Loading_modal" data-bs-toggle="modal">
+                      开始定制
+                    </button>
+                  <a href="#" class="btn btn-secondary">
+                    重新定制
+                  </a>
+                </div>
+            </form>
+          </div>
+        </div>
+{#        右眼角膜地形图#}
+        <div class="g-col-6">
+          <div class="card">
+          <form action="{% url "tomey_create_4_customize" %}" method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <div class="card-header">
+              <img
+                class="label_1"
+                referrerpolicy="no-referrer"
+{#                src="{% static "img/home/FigmaDDSSlicePNG7bd26e98e8d9dbe4dda3fcfae79a2a0e.png" %}"#}
+
+                src="{% static "img/home/FigmaDDSSlicePNG559998705432497131123838fbaf1339.png" %}"
+              />  
+              <h3 class="card-title">角膜地形图(右眼)</h3>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="eye"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="eye" name="eye">
+                      <option value="right" {% if right_corneal_topography.eye == 'right' %}selected{% endif %}>右眼</option>
+                    </select>
+                  </div>
+              </div>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="patient01"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="patient01" name="patient">
+                      <option value="{{ object.id }}" selected>病人id</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+                <div class="card-body grid">
+                    <div class="g-col-9">
+                        <div class="grid">
+{#                          <div class="g-col-6 g-col-md-3">#}
+{#                              <label class="form-label" for="flat_k">平K</label>#}
+{#                              <div>#}
+{#                                <input type="text" class="form-control"  placeholder="请输入…" id="flat_k" name="flat_k" value="{{ right_corneal_topography.flat_k }}" disabled>#}
+{#                              </div>#}
+{#                          </div>#}
+{#                          <div class="g-col-6 g-col-md-3">#}
+{#                              <label class="form-label" for="plane_angle">平角度</label>#}
+{#                              <div>#}
+{#                                <input type="text" class="form-control"  placeholder="请输入…" id="plane_angle" name="plane_angle" value="{{ right_corneal_topography.plane_angle }}" disabled>#}
+{#                              </div>#}
+{#                          </div>#}
+                          <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="plane_e">平面e</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="plane_e" name="plane_e" value="{{ right_corneal_topography.plane_e }}" disabled>
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="inclined_surface_e">斜面e</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="inclined_surface_e" name="inclined_surface_e" value="{{ right_corneal_topography.inclined_surface_e }}" disabled>
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="delta_k">▲K(D)</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="delta_k" name="delta_k" value="{{ right_corneal_topography.delta_k }}" disabled>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="grid">
+{#                          <div class="g-col-6 g-col-md-3">#}
+{#                              <label class="form-label" for="steep_k">陡K(D)</label>#}
+{#                              <div>#}
+{#                                <input type="text" class="form-control"  placeholder="请输入…" id="steep_k" name="steep_k" value="{{ right_corneal_topography.steep_k }}" disabled> #}
+{#                              </div>#}
+{#                          </div>#}
+{#                          <div class="g-col-6 g-col-md-3">#}
+{#                              <label class="form-label" for="inclined_angle">斜角度</label>#}
+{#                              <div>#}
+{#                                <input type="text" class="form-control"  placeholder="请输入…" id="inclined_angle" name="inclined_angle" value="{{ right_corneal_topography.inclined_angle }}" disabled>#}
+{#                              </div>#}
+{#                          </div>#}
+                        </div>
+                   </div >
+                    <div class="g-col-3">
+{#                        <img src="{% static "img/home/FigmaDDSSlicePNG07b5fd6f821a68c7b808925ecb650f40.png" %}">#}
+                    </div>
+                </div>
+{#                <div class="card-footer text-end">#}
+{#                  <button href="#" class="btn btn-primary" type="submit" data-bs-target="#toast_success">#}
+{#                    开始定制#}
+{#                  </button>#}
+{#                  <a href="#" class="btn btn-secondary">#}
+{#                    重新定制#}
+{#                  </a>#}
+{#                </div>#}
+            </form>
+
+          </div>
+
+        </div>
+{#        左眼角膜地形图#}
+        <div class="g-col-6">
+          <div class="card">
+          <form action="{% url "tomey_create_4_customize" %}" method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <div class="card-header">
+              <img
+                class="label_1"
+                referrerpolicy="no-referrer"
+{#                src="{% static "img/home/FigmaDDSSlicePNG7bd26e98e8d9dbe4dda3fcfae79a2a0e.png" %}"#}
+
+                src="{% static "img/home/FigmaDDSSlicePNG559998705432497131123838fbaf1339.png" %}"
+              />
+              <h3 class="card-title">角膜地形图(左眼)</h3>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="eye_l"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="eye_l" name="eye">
+                      <option value="left" {% if left_corneal_topography.eye == 'left' %}selected{% endif %}>左眼</option>
+                    </select>
+                  </div>
+              </div>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="patient01_l"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="patient01_l" name="patient">
+                      <option value="{{ object.id }}" selected>病人id</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+                <div class="card-body grid">
+                    <div class="g-col-9">
+                        <div class="grid">
+{#                          <div class="g-col-6 g-col-md-3">#}
+{#                              <label class="form-label" for="flat_k_l">平K</label>#}
+{#                              <div>#}
+{#                                <input type="text" class="form-control"  placeholder="请输入…" id="flat_k_l" name="flat_k" value="{{ left_corneal_topography.flat_k }}">#}
+{#                              </div>#}
+{#                          </div>#}
+{#                          <div class="g-col-6 g-col-md-3">#}
+{#                              <label class="form-label" for="plane_angle_l">平角度</label>#}
+{#                              <div>#}
+{#                                <input type="text" class="form-control"  placeholder="请输入…" id="plane_angle_l" name="plane_angle" value="{{ left_corneal_topography.plane_angle }}">#}
+{#                              </div>#}
+{#                          </div>#}
+                          <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="plane_e_l">平面e</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="plane_e_l" name="plane_e" value="{{ left_corneal_topography.plane_e }}" disabled>
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="inclined_surface_e_l">斜面e</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="inclined_surface_e_l" name="inclined_surface_e" value="{{ left_corneal_topography.inclined_surface_e }}" disabled>
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-3">
+                              <label class="form-label" for="delta_k_l">▲K(D)</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="delta_k_l" name="delta_k" value="{{ left_corneal_topography.delta_k }}" disabled>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="grid">
+{#                          <div class="g-col-6 g-col-md-3">#}
+{#                              <label class="form-label" for="steep_k_l">陡K(D)</label>#}
+{#                              <div>#}
+{#                                <input type="text" class="form-control"  placeholder="请输入…" id="steep_k_l" name="steep_k" value="{{ left_corneal_topography.steep_k }}" disabled>#}
+{#                              </div>#}
+{#                          </div>#}
+{#                          <div class="g-col-6 g-col-md-3">#}
+{#                              <label class="form-label" for="inclined_angle_l">斜角度</label>#}
+{#                              <div>#}
+{#                                <input type="text" class="form-control"  placeholder="请输入…" id="inclined_angle_l" name="inclined_angle" value="{{ left_corneal_topography.inclined_angle }}">#}
+{#                              </div>#}
+{#                          </div>#}
+{#                          <div class="g-col-6 g-col-md-3">#}
+{#                              <label class="form-label" for="inclined_surface_e_l">斜面e</label>#}
+{#                              <div>#}
+{#                                <input type="text" class="form-control"  placeholder="请输入…" id="inclined_surface_e_l" name="inclined_surface_e" value="{{ left_corneal_topography.inclined_surface_e }}">#}
+{#                              </div>#}
+{#                          </div>#}
+{#                          <div class="g-col-6 g-col-md-3">#}
+{#                              <label class="form-label" for="delta_k_l">▲K(D)</label>#}
+{#                              <div>#}
+{#                                <input type="text" class="form-control"  placeholder="请输入…" id="delta_k_l" name="delta_k" value="{{ left_corneal_topography.delta_k }}">#}
+{#                              </div>#}
+{#                          </div>#}
+                        </div>
+                   </div >
+                    <div class="g-col-3">
+{#                        <img src="{% static "img/home/FigmaDDSSlicePNG07b5fd6f821a68c7b808925ecb650f40.png" %}">#}
+                    </div>
+                </div>
+            </form>
+
+          </div>
+
+        </div>
+{#        右眼定制参数信息#}
+        <div class="g-col-6">
+          <div class="card">
+          {% if right_ac_customization.id %}
+          <form action="{% url "4_customized_update" pk=right_ac_customization.id %}" method="post">
+          {% else %}
+          <form action="{% url "create_4_customize"  %}" method="post">
+          {% endif %}
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <div class="card-header">
+              <img
+                class="label_1"
+                referrerpolicy="no-referrer"
+                src="{% static "img/home/FigmaDDSSlicePNGd0f1e23ab11dabf49886d26aa9a0857c.png" %}"
+              />
+              <h3 class="card-title">定制参数信息(右眼)</h3>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="eye"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="eye" name="eye">
+                      <option value="right" {% if right_ac_customization.eye == 'right' %}selected{% endif %}>右眼</option>
+                    </select>
+                  </div>
+              </div>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="patient01"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="patient01" name="patient">
+                      <option value="{{ object.id }}" selected>病人id</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+                <div class="card-body grid">
+                    <div class="g-col-9">
+                        <div class="grid">
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="ac_arc_k1">AC弧k1(D)</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="ac_arc_k1" name="ac_arc_k1" value="{{ right_ac_customization.ac_arc_k1 }}" disabled>
+                              </div>
+                          </div>
+                          
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="ac_arc_k2">AC弧k2(D)</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="ac_arc_k2" name="ac_arc_k2" value="{{ right_ac_customization.ac_arc_k2 }}" disabled>
+                              </div>
+                          </div>
+                        
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="ac_arc_k2">AC弧k3(D)</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="ac_arc_k3" name="ac_arc_k3" value="{{ right_ac_customization.ac_arc_k3 }}" disabled>
+                              </div>
+                          </div>
+                            
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="ac_arc_k2">AC弧k4(D)</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="ac_arc_k4" name="ac_arc_k4" value="{{ right_ac_customization.ac_arc_k4 }}" disabled>
+                              </div>
+                          </div>  
+                        
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="base_arc_curvature_radius">基弧曲率半径(mm)</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="base_arc_curvature_radius" name="base_arc_curvature_radius" value="{{ right_ac_customization.base_arc_curvature_radius|floatformat:2 }}" disabled>
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="axis">轴位</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="axis" name="axis" value="{{ right_ac_customization.axis }}" disabled>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="grid">
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="ace_position">ACe档位</label>
+                              <div>
+                                  <select class="form-select" id="ace_position" name="ace_position" data-size="5" disabled>
+                                    <option value="-0.25" {% if right_ac_customization.ace_position == -0.25 %}selected{% endif %}>E0</option>
+                                    <option value="-0.50" {% if right_ac_customization.ace_position == -0.50 %}selected{% endif %}>E1</option>
+                                    <option value="-0.75" {% if right_ac_customization.ace_position == -0.75 %}selected{% endif %}>E2</option>
+                                    <option value="-1.00" {% if right_ac_customization.ace_position == -1.00 %}selected{% endif %}>E3</option>
+                                    <option value="0.00" {% if right_ac_customization.ace_position == 0.00 %}selected{% endif %}>E-1</option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="reverse_arc_height">反转弧矢高</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="reverse_arc_height" name="reverse_arc_height" value="{{ right_ac_customization.reverse_arc_height }}" disabled>
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="side_arc_position">边弧档位</label>
+                              <div>
+                                <select class="form-select" id="side_arc_position" name="side_arc_position" disabled>
+                                    <option value= 16.8 {% if right_ac_customization.side_arc_position == 16.8 %}selected{% endif %}>+2</option>
+                                    <option value= 12.8 {% if right_ac_customization.side_arc_position == 12.8 %}selected{% endif %}>+1</option>
+                                    <option value= 8.8 {% if right_ac_customization.side_arc_position == 8.8 %}selected{% endif %}>+0</option>
+                                    <option value= 4.8 {% if right_ac_customization.side_arc_position == 4.8 %}selected{% endif %}>-1</option>
+                                </select>
+{#                                <input type="text" class="form-control"  placeholder="请输入…" id="side_arc_position" name="side_arc_position" value="{{ right_ac_customization.side_arc_position }}">#}
+                              </div>
+                          </div>
+                        </div>
+                   </div >
+                    <div class="g-col-3">
+{#                        <img src="{% static "img/home/FigmaDDSSlicePNGfb339a8b3bb4d518dc9cd3d09c1daae5.png" %}">#}
+                    </div>
+                </div>
+                <div class="card-footer text-end">
+                  {% if right_ac_customization and right_ac_customization.pk %}
+                  <a href="{% url 'params_modify' right_ac_customization.pk %}" class="btn btn-primary">
+                      参数修改
+                  </a>
+                  {% else %}
+                  <button class="btn btn-primary" disabled>参数修改</button>
+                  {% endif %}
+                </div>
+            </form>
+          </div>
+        </div>
+{#        左眼定制参数信息#}
+        <div class="g-col-6">
+          <div class="card">
+
+          {% if right_ac_customization.id %}
+              <form action="{% url "4_customized_update" pk=right_ac_customization.id %}" method="post">
+          {% else %}
+              <form action="{% url "create_4_customize"  %}" method="post">
+          {% endif %}
+
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <div class="card-header">
+              <img
+                class="label_1"
+                referrerpolicy="no-referrer"
+                src="{% static "img/home/FigmaDDSSlicePNGd0f1e23ab11dabf49886d26aa9a0857c.png" %}"
+              />
+              <h3 class="card-title">定制参数信息(左眼)</h3>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="eye"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="eye" name="eye">
+                      <option value="left" {% if left_ac_customization.eye == 'left' %}selected{% endif %}>右眼</option>
+                    </select>
+                  </div>
+              </div>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="patient01"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="patient01" name="patient">
+                      <option value="{{ object.id }}" selected>病人id</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+                <div class="card-body grid">
+                    <div class="g-col-9">
+                        <div class="grid">
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="ac_arc_k1_l">AC弧K1</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="ac_arc_k1_l" name="ac_arc_k1" value="{{ left_ac_customization.ac_arc_k1 }}" disabled>
+                              </div>
+                          </div>
+                        
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="ac_arc_k2_l">AC弧K2</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="ac_arc_k2_l" name="ac_arc_k2" value="{{ left_ac_customization.ac_arc_k2 }}" disabled>
+                              </div>
+                          </div>
+                        
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="ac_arc_k2_l">AC弧K3</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="ac_arc_k3_l" name="ac_arc_k3" value="{{ left_ac_customization.ac_arc_k3 }}" disabled>
+                              </div>
+                          </div>
+                        
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="ac_arc_k2_l">AC弧K4</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="ac_arc_k4_l" name="ac_arc_k4" value="{{ left_ac_customization.ac_arc_k4 }}" disabled>
+                              </div>
+                          </div>
+                            
+                        
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="base_arc_curvature_radius_l">基弧曲率半径(mm)</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="base_arc_curvature_radius_l" name="base_arc_curvature_radius" value="{{ left_ac_customization.base_arc_curvature_radius|floatformat:2 }}" disabled>
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="axis_l">轴位</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="axis_l" name="axis_l" value="{{ left_ac_customization.axis }}" disabled>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="grid">
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="ace_position_l">ACe档位</label>
+                              <div>
+                                  <select class="form-select" id="ace_position_l" name="ace_position" data-size="5" disabled>
+                                    <option value="-0.25" {% if left_ac_customization.ace_position == -0.25 %}selected{% endif %}>E0</option>
+                                    <option value="-0.50" {% if left_ac_customization.ace_position == -0.50 %}selected{% endif %}>E1</option>
+                                    <option value="-0.75" {% if left_ac_customization.ace_position == -0.75 %}selected{% endif %}>E2</option>
+                                    <option value="-1.00" {% if left_ac_customization.ace_position == -1.00 %}selected{% endif %}>E3</option>
+                                    <option value="0.00" {% if left_ac_customization.ace_position == 0.00 %}selected{% endif %}>E-1</option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="reverse_arc_height_l">反转弧矢高</label>
+                              <div>
+                                <input type="text" class="form-control"  placeholder="请输入…" id="reverse_arc_height_l" name="reverse_arc_height" value="{{ left_ac_customization.reverse_arc_height }}" disabled>
+                              </div>
+                          </div>
+                          <div class="g-col-6 g-col-md-4">
+                              <label class="form-label" for="side_arc_position_l">边弧档位</label>
+                              <div>
+                                <select class="form-select" id="side_arc_position_l" name="side_arc_position" disabled>
+                                    <option value= 16.8 {% if left_ac_customization.side_arc_position == 16.8 %}selected{% endif %}>+2</option>
+                                    <option value= 12.8 {% if left_ac_customization.side_arc_position == 12.8 %}selected{% endif %}>+1</option>
+                                    <option value= 8.8 {% if left_ac_customization.side_arc_position == 8.8 %}selected{% endif %}>+0</option>
+                                    <option value= 4.8 {% if left_ac_customization.side_arc_position == 4.8 %}selected{% endif %}>-1</option>
+                                </select>
+{#                                <input type="text" class="form-control"  placeholder="请输入…" id="side_arc_position" name="side_arc_position" value="{{ right_ac_customization.side_arc_position }}">#}
+                              </div>
+                          </div>
+                        </div>
+                   </div >
+                    <div class="g-col-3">
+{#                        <img src="{% static "img/home/FigmaDDSSlicePNGfb339a8b3bb4d518dc9cd3d09c1daae5.png" %}">#}
+                    </div>
+                </div>
+                <div class="card-footer text-end">
+                  {% if left_ac_customization and left_ac_customization.pk %}
+                  <a href="{% url 'params_modify' left_ac_customization.pk %}" class="btn btn-primary">
+                      参数修改
+                  </a>
+                  {% else %}
+                  <button class="btn btn-primary" disabled>参数修改</button>
+                  {% endif %}
+                </div>
+            </form>
+          </div>
+        </div>
+{#        复查结果右眼#}
+        <div class="g-col-6">
+          <div class="card">
+          <form action="{% url "create_4_customize" %}" method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <div class="card-header">
+              <img
+                class="label_1"
+                referrerpolicy="no-referrer"
+                src="{% static "img/home/FigmaDDSSlicePNG03e037aa42e53f2fd847e24721aadb4b.png" %}"
+              />
+              <h3 class="card-title">复查结果(右眼)</h3>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="eye"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="eye" name="eye">
+                      <option value="right" selected>右眼</option>
+                    </select>
+                  </div>
+              </div>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="patient01"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="patient01" name="patient">
+                      <option value="{{ object.id }}" selected>病人id</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+                <div class="card-body">
+{#                    <div class="g-col-9">#}
+                        <div class="grid">
+                          <div class="g-col-6">
+                              <label class="form-label" for="lens_type">适配情况</label>
+                              <div>
+                                <select class="form-select" id="lens_type" name="lens_type">
+                                  <option value="s" selected>请选择</option>
+                                  <option value="A">请选择</option>
+                                  <option value="PRO">请选择</option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="g-col-6">
+                              <label class="form-label" for="ring_cus">售后情况</label>
+                              <div>
+                                <select class="form-select" id="ring_cus" name="ring_cus">
+                                  <option value="s" selected>请选择</option>
+                                  <option value="A">请选择</option>
+                                  <option value="PRO">请选择</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="grid">
+                          <div class="g-col-6">
+                              <label class="form-label" for="optical_zone_diameter">售后原因</label>
+                              <div>
+                                <select class="form-select" id="ring_cus" name="ring_cus">
+                                  <option value="s" selected>原因1</option>
+                                  <option value="A">原因2</option>
+                                  <option value="PRO">原因3</option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="g-col-6">
+                              <label class="form-label" for="ac_arc_width">满意度</label>
+                              <div>
+                                <select class="form-select" id="ring_cus" name="ring_cus">
+                                  <option value="s" selected>100%</option>
+                                  <option value="A">90%</option>
+                                  <option value="PRO">80%</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                </div>
+                <div class="card-footer text-end">
+                  <button href="#" class="btn btn-primary" type="submit" data-bs-target="#toast_success">
+                    参数修改
+                  </button>
+{#                  <a href="#" class="btn btn-secondary">#}
+{#                    详细参数#}
+{#                  </a>#}
+                </div>
+            </form>
+
+          </div>
+
+        </div>
+{#        复查结果左眼#}
+        <div class="g-col-6">
+          <div class="card">
+          <form action="{% url "create_4_customize" %}" method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <div class="card-header">
+              <img
+                class="label_1"
+                referrerpolicy="no-referrer"
+                src="{% static "img/home/FigmaDDSSlicePNG03e037aa42e53f2fd847e24721aadb4b.png" %}"
+              />
+              <h3 class="card-title">复查结果(左眼)</h3>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="eye"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="eye" name="eye">
+                      <option value="left" selected>左眼</option>
+                    </select>
+                  </div>
+              </div>
+              <div class="g-col-6 g-col-md-3">
+                  <label class="form-label" for="patient01"></label>
+                  <div>
+                    <select hidden="hidden" class="form-select" id="patient01" name="patient">
+                      <option value="{{ object.id }}" selected>病人id</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+                <div class="card-body">
+{#                    <div class="g-col-9">#}
+                        <div class="grid">
+                          <div class="g-col-6">
+                              <label class="form-label" for="lens_type">适配情况</label>
+                              <div>
+                                <select class="form-select" id="lens_type" name="lens_type">
+                                  <option value="s" selected>请选择</option>
+                                  <option value="A">请选择</option>
+                                  <option value="PRO">请选择</option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="g-col-6">
+                              <label class="form-label" for="ring_cus">售后情况</label>
+                              <div>
+                                <select class="form-select" id="ring_cus" name="ring_cus">
+                                  <option value="s" selected>请选择</option>
+                                  <option value="A">请选择</option>
+                                  <option value="PRO">请选择</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="grid">
+                          <div class="g-col-6">
+                              <label class="form-label" for="optical_zone_diameter">售后原因</label>
+                              <div>
+                                <select class="form-select" id="ring_cus" name="ring_cus">
+                                  <option value="s" selected>原因1</option>
+                                  <option value="A">原因2</option>
+                                  <option value="PRO">原因3</option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="g-col-6">
+                              <label class="form-label" for="ac_arc_width">满意度</label>
+                              <div>
+                                <select class="form-select" id="ring_cus" name="ring_cus">
+                                  <option value="s" selected>100%</option>
+                                  <option value="A">90%</option>
+                                  <option value="PRO">80%</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                </div>
+                <div class="card-footer text-end">
+                  <button href="#" class="btn btn-primary" type="submit" data-bs-target="#toast_success">
+                    参数修改
+                  </button>
+{#                  <a href="#" class="btn btn-secondary">#}
+{#                    详细参数#}
+{#                  </a>#}
+                </div>
+            </form>
+
+          </div>
+
+        </div>
+    </div>
+<br/>
+
+
+{#处理弹窗#}
+<div class="container-xl">
+    <div class="modal modal-blur fade" id="Loading_modal" tabindex="-1" role="dialog" aria-hidden="true" 
+         data-backdrop="static" data-keyboard="false" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered" role="patient">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">处理中</h5>
+{#            <button type="button" class="btn-close" id="cancelProcessing" aria-label="Close"></button>#}
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+                <label class="form-label">处理中，请稍候...</label>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{#右眼-AC定制提示弹窗#}
+<div class="modal" id="RightModalACToast" tabindex="-1"  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">右眼提示</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        根据软件的计算，您可能需要AC定制片，是否选择AC定制片?
+      </div>
+      <div class="modal-footer">
+        <form action="{% url "special_progress_bar" %}" method="post" >
+            {% csrf_token %}
+            <input hidden="hidden" class="form-select" id="type_cc" name="type_cc" value="right_ace_position_modify">
+            <input hidden="hidden" class="form-select" id="eye" name="eye" value="right">
+            <input hidden="hidden" class="form-select" id="patient_pk" name="patient_pk" value="{{ object.id }}">
+            <input hidden="hidden" class="form-select" id="ace_position" name="ace_position" value="-0.25">
+            <input hidden="hidden" class="form-select" id="ac_cus" name="ac_cus" value="0">
+            <button type="submit" class="btn me-auto" data-bs-target="#Loading_modal" data-bs-toggle="modal">否</button>
+         </form>
+         <form action="{% url "special_progress_bar" %}" method="post" >
+            {% csrf_token %}
+            <input hidden="hidden" class="form-select" id="type_cc" name="type_cc" value="right_ace_position_modify">
+            <input hidden="hidden" class="form-select" id="eye" name="eye" value="right">
+            <input hidden="hidden" class="form-select" id="patient_pk" name="patient_pk" value="{{ object.id }}">
+            <input hidden="hidden" class="form-select" id="ace_position" name="ace_position" value="{{ right_ac_customization.ace_position }}">
+            <input hidden="hidden" class="form-select" id="ac_cus" name="ac_cus" value="1">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">是</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{#右眼-环曲定制提示弹窗#}
+<div class="modal" id="RightModalTCToast" tabindex="-1"  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">右眼提示</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        根据软件的计算，您可能需要环曲定制片，是否选择环曲定制片
+      </div>
+      <div class="modal-footer">
+        <form action="{% url "special_progress_bar" %}" method="post" >
+            {% csrf_token %}
+            <input hidden="hidden" class="form-select" id="type_cc" name="type_cc" value="right_tac_position_modify">
+            <input hidden="hidden" class="form-select" id="eye" name="eye" value="right">
+            <input hidden="hidden" class="form-select" id="patient_pk" name="patient_pk" value="{{ object.id }}">
+            <input hidden="hidden" class="form-select" id="tac_position" name="tac_position" value="0.00">
+            <input hidden="hidden" class="form-select" id="ring_cus" name="ring_cus" value="0">
+            <button type="submit" class="btn me-auto">否</button>
+         </form>
+         <form action="{% url "special_progress_bar" %}" method="post" >
+            {% csrf_token %}
+            <input hidden="hidden" class="form-select" id="type_cc" name="type_cc" value="right_tac_position_modify">
+            <input hidden="hidden" class="form-select" id="eye" name="eye" value="right">
+            <input hidden="hidden" class="form-select" id="patient_pk" name="patient_pk" value="{{ object.id }}">
+            <input hidden="hidden" class="form-select" id="tac_position" name="tac_position" value="{{ right_ac_customization.tac_position }}">
+            <input hidden="hidden" class="form-select" id="ring_cus" name="ring_cus" value="1">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">是</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{#左眼-AC定制提示弹窗#}
+<div class="modal" id="LeftModalACToast" tabindex="-1"  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">左眼提示</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        根据软件的计算，您可能需要AC定制片，是否选择AC定制片?
+      </div>
+      <div class="modal-footer">
+        <form action="{% url "special_progress_bar" %}" method="post" >
+            {% csrf_token %}
+            <input hidden="hidden" class="form-select" id="type_cc" name="type_cc" value="left_ace_position_modify">
+            <input hidden="hidden" class="form-select" id="eye" name="eye" value="left">
+            <input hidden="hidden" class="form-select" id="patient_pk" name="patient_pk" value="{{ object.id }}">
+            <input hidden="hidden" class="form-select" id="ace_position" name="ace_position" value="-0.25">
+            <input hidden="hidden" class="form-select" id="ac_cus" name="ac_cus" value="0">
+            <button type="submit" class="btn me-auto" data-bs-target="#Loading_modal" data-bs-toggle="modal">否</button>
+         </form>
+         <form action="{% url "special_progress_bar" %}" method="post" >
+            {% csrf_token %}
+            <input hidden="hidden" class="form-select" id="type_cc" name="type_cc" value="left_ace_position_modify">
+            <input hidden="hidden" class="form-select" id="eye" name="eye" value="left">
+            <input hidden="hidden" class="form-select" id="patient_pk" name="patient_pk" value="{{ object.id }}">
+            <input hidden="hidden" class="form-select" id="ace_position" name="ace_position" value="{{ left_ac_customization.ace_position }}">
+            <input hidden="hidden" class="form-select" id="ac_cus" name="ac_cus" value="1">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">是</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{#左眼-环曲定制提示弹窗#}
+<div class="modal" id="LeftModalACToast" tabindex="-1"  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">左眼提示</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        根据软件的计算，您可能需要环曲定制片，是否选择环曲定制片
+      </div>
+      <div class="modal-footer">
+        <form action="{% url "special_progress_bar" %}" method="post" >
+            {% csrf_token %}
+            <input hidden="hidden" class="form-select" id="type_cc" name="type_cc" value="left_tac_position_modify">
+            <input hidden="hidden" class="form-select" id="eye" name="eye" value="left">
+            <input hidden="hidden" class="form-select" id="patient_pk" name="patient_pk" value="{{ object.id }}">
+            <input hidden="hidden" class="form-select" id="tac_position" name="tac_position" value="0.00">
+            <input hidden="hidden" class="form-select" id="ring_cus" name="ring_cus" value="0">
+            <button type="submit" class="btn me-auto">否</button>
+         </form>
+         <form action="{% url "special_progress_bar" %}" method="post" >
+            {% csrf_token %}
+            <input hidden="hidden" class="form-select" id="type_cc" name="type_cc" value="left_tac_position_modify">
+            <input hidden="hidden" class="form-select" id="eye" name="eye" value="left">
+            <input hidden="hidden" class="form-select" id="patient_pk" name="patient_pk" value="{{ object.id }}">
+            <input hidden="hidden" class="form-select" id="tac_position" name="tac_position" value="{{ left_ac_customization.tac_position }}">
+            <input hidden="hidden" class="form-select" id="ring_cus" name="ring_cus" value="1">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">是</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% block javascript %}
+    <!-- 引入jQuery -->
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var result_overall_diameter = document.getElementById('overall_diameter');
+          var result_optical_zone_diameter = document.getElementById('optical_zone_diameter');
+          var result_ac_arc_width = document.getElementById('ac_arc_width');
+
+          // 页面加载时立即计算默认值
+          updateResult();
+
+          // 监听输入框A的变化
+          result_overall_diameter.addEventListener('change', function() {
+            updateResult();
+          });
+
+          // 监听输入框B的变化
+          result_optical_zone_diameter.addEventListener('change', function() {
+            updateResult();
+          });
+
+          // 更新结果的函数
+          function updateResult() {
+            var valueA = parseFloat(result_overall_diameter.value) || 0;
+            console.log(valueA)
+            var valueB = parseFloat(result_optical_zone_diameter.value) || 0;
+            console.log(valueB)
+            // 假设C的值是A和B值的和
+            // AC弧范围
+            var start_value = valueB + 1.6
+            var end_value = valueA - 0.5*2
+             console.log("AC弧范围", start_value, end_value)
+            result_ac_arc_width.value = ((end_value - start_value)/2).toFixed(1)
+          }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var result_overall_diameter_l = document.getElementById('overall_diameter_l');
+          var result_optical_zone_diameter_l = document.getElementById('optical_zone_diameter_l');
+          var result_ac_arc_width_l = document.getElementById('ac_arc_width_l');
+
+          // 页面加载时立即计算默认值
+          updateResult();
+
+          // 监听输入框A的变化
+          result_overall_diameter_l.addEventListener('change', function() {
+            updateResult();
+          });
+
+          // 监听输入框B的变化
+          result_optical_zone_diameter_l.addEventListener('change', function() {
+            updateResult();
+          });
+
+          // 更新结果的函数
+          function updateResult() {
+            var valueA = parseFloat(result_overall_diameter_l.value) || 0;
+            console.log(valueA)
+            var valueB = parseFloat(result_optical_zone_diameter_l.value) || 0;
+            console.log(valueB)
+            // 假设C的值是A和B值的和
+            // AC弧范围
+            var start_value = valueB + 1.6
+            var end_value = valueA - 0.5*2
+             console.log("AC弧范围", start_value, end_value)
+            result_ac_arc_width_l.value = ((end_value - start_value)/2).toFixed(1)
+          }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var modal = document.getElementById("ac_cus_modal_l");
+          {#var span = document.getElementsByClassName("close")[0];#}
+
+          // 监听select元素的变化
+          document.getElementById('ac_cus').addEventListener('change', function() {
+            if (this.value === '0') {
+              // 显示模态框
+              modal.style.display = "block";
+            } else {
+              // 隐藏模态框
+              modal.style.display = "none";
+            }
+          });
+
+        });
+    </script>
+    {#    输入平k陡k值后，自动触发将输入的具体数值进行近似#}
+    <script>
+        function roundToQuarter(input) {
+            // 获取输入值
+            let value = parseFloat(input.value);
+
+            // 如果输入不是数字则不做处理
+            if (isNaN(value)) return;
+
+            // 四舍五入到最近的0.25
+            let rounded = Math.round(value * 4) / 4;
+
+            // 更新输入框的值
+            input.value = rounded.toFixed(2);
+        }
+    </script>
+    
+{% endblock %}
+

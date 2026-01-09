@@ -1,0 +1,86 @@
+{% extends "headers.html" %}
+
+
+{% block content %}
+    <div class="container-xl">
+          <!-- Page title -->
+          <div class="page-header d-print-none">
+            <div class="row align-items-center">
+              <div class="col">
+                <!-- Page pre-title -->
+                {% if  object.name %}
+                    <h2 class="page-title">
+                      {{ object.name}}
+                    </h2>
+                    <div class="page-pretitle">
+                      {{ object.gender }} {{ object.birth_date }} {{ object.phone }}
+                    </div>
+                {% else %}
+                    <h2 class="page-title">
+                      未选择
+                    </h2>
+                    <div class="page-pretitle">
+                      选择后查看信息
+                    </div>
+                {% endif %}
+
+              </div>
+              <!-- Page title actions -->
+              <div class="col-auto ms-auto d-print-none">
+                  <h4>Tomey-四轴定制</h4>
+{#                <div class="btn-list">#}
+{#                  <a  href='#' class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-select-patient" type="submit">#}
+{#                      搜索病例#}
+{#                  </a>#}
+{#                  <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">#}
+{#                      创建病例#}
+{#                  </a>#}
+{#                </div>#}
+              </div>
+            </div>
+          </div>
+          <!-- Page content -->
+          {% if object.name %}
+              {% include "tomey/tomey_detail_page_4_customize.html" %}
+          {% else %}
+              {% include "memdent/blank_page.html" %}
+          {% endif %}
+    </div>
+    {% include "upstateremind/message_toast.html" %}
+    
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        function openHistoryCasePopup() {
+            window.open("{% url 'patient_list' %}", "历史病例", "width=1246,height=862");
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var result_overall_diameter = document.getElementById('overall_diameter');
+          var result_optical_zone_diameter = document.getElementById('optical_zone_diameter');
+          var result_ac_arc_width = document.getElementById('ac_arc_width');
+
+          // 监听输入框A的变化
+          result_overall_diameter.addEventListener('select', function() {
+            updateResult();
+          });
+
+          // 监听输入框B的变化
+          result_optical_zone_diameter.addEventListener('select', function() {
+            updateResult();
+          });
+
+          // 更新结果的函数
+          function updateResult() {
+            var valueA = parseFloat(result_optical_zone_diameter.value) || 0;
+            console.log(valueA)
+            var valueB = parseFloat(result_optical_zone_diameter.value) || 0;
+            // 假设C的值是A和B值的和
+            result_ac_arc_width.value = valueA + valueB;
+          }
+        });
+    </script>
+
+{% endblock %}

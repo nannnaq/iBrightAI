@@ -1,0 +1,177 @@
+{% extends "headers.html" %}
+{% block css %}
+    <style>
+        .table-fixed-height {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .table-fixed-height thead {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row row-deck row-cards">
+            <div >
+                <form action="{% url 'generate_print_report' %}" method="post">
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">患者病例管理</h3>
+                        </div>
+                        
+                        <div class="table-responsive table-fixed-height" style="height: 600px; overflow-y: auto;">
+                            <table class="table table-hover table-vcenter card-table">
+                                <thead style="position: sticky; top: 0; background: white; z-index: 1;">
+                                    <tr>
+                                        <!-- <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox" id="selectAll" title="全选/取消全选"></th> -->
+                                        <th>姓名</th>
+                                        <th>病历号</th>
+                                        <th>性别</th>
+                                        <th>年龄</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in cases %}
+                                    <tr>
+                                        <!-- <td><input class="form-check-input m-0 align-middle" type="checkbox" name="patient_ids" value="{{ item.patient.id }}"></td> -->
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <span class="avatar avatar-sm me-2">{{ item.patient.name|slice:":1" }}</span>
+                                                <a href="{% url "patient_detail" pk=item.patient.id %}" class="text-reset">{{ item.patient.name }}</a>
+                                            </div>
+                                        </td>
+                                        <td>{{ item.patient.medical_record_number|default:"-" }}</td>
+                                        <td>
+                                            {% if item.patient.gender == '男' %}
+                                                <span class="badge bg-blue-lt">男</span>
+                                            {% else %}
+                                                <span class="badge bg-red-lt">女</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ item.patient.age }}</td>
+                                        <td >
+                                            {% if item.print_ctype is not None %}
+                                                <a href="{% url "print_detail_page" pk=item.patient.id %}?ctype={{ item.print_ctype }}" class="btn btn-sm btn-primary">
+                                                    打印报告
+                                                </a>
+                                            {% else %}
+                                                <button class="btn btn-sm btn-secondary" disabled>无数据</button>
+                                            {% endif %}
+                                            </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6" class="text-center">暂无患者数据</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-footer d-flex align-items-center">
+                            <p class="m-0 text-muted">
+                                显示 <span>{{ page_obj.start_index }}</span> 至 <span>{{ page_obj.end_index }}</span> 条，共 <span>{{ page_obj.paginator.count }}</span> 条记录
+                            </p>
+                            <ul class="pagination m-0 ms-auto">
+                                </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- <div class="mt-4 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">
+                            生成打印报告
+                        </button>
+                    </div> -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% for item in cases %}
+    <div class="modal modal-blur fade" id="deleteModal{{item.patient.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 9v2m0 4v.01"></path>
+                        <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
+                    </svg>
+                    <h3>确认删除?</h3>
+                    <div class="text-muted">确定要删除患者 <strong>{{item.patient.name}}</strong> 的所有数据吗？此操作无法撤销。</div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn w-100" data-bs-dismiss="modal">取消</button>
+                            </div>
+                            <div class="col">
+                                <form action="{% url 'patient_delete' pk=item.patient.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger w-100">确认删除</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+    {% include "uppatient/list_modals.html" %}
+    {% include "uppatient/update_patient.html" %}
+    {% include "uppatient/create_patient.html" %}
+{% endblock %}
+
+{% block javascript %}
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editModal = document.getElementById('editModal');
+        if (editModal) {
+            // 6. 确保 'data-' 属性在模板中也使用了 'item.patient'
+            editModal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const id = button.getAttribute('data-id');
+                const name = button.getAttribute('data-name');
+                const phone = button.getAttribute('data-phone');
+                const gender = button.getAttribute('data-gender');
+                const age = button.getAttribute('data-age');
+                const createDate = button.getAttribute('data-create-date');
+
+                const form = editModal.querySelector('form');
+                form.action = "{% url 'patient_update' pk=0 %}".replace('0', id);
+
+                editModal.querySelector('#edit-id').value = id;
+                editModal.querySelector('#edit-name').value = name;
+                editModal.querySelector('#edit-phone').value = phone;
+                editModal.querySelector('#edit-gender').value = gender;
+                editModal.querySelector('#edit-age').value = age;
+                editModal.querySelector('#edit-create-date').value = createDate;
+            });
+        }
+
+        // "全选" 功能的 JS (保持不变)
+        var selectAll = document.getElementById('selectAll');
+        if (selectAll) {
+            selectAll.addEventListener('change', function() {
+                var checkboxes = document.querySelectorAll('input[name="patient_ids"]');
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = this.checked;
+                }
+            });
+        }
+    });
+    </script>
+{% endblock %}
